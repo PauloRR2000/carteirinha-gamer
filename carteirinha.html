@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minha Carteirinha | Carteirinha Gamer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="carteirinha">
+  <header class="topo">
+    <a class="marca" href="index.html"><span class="marca-icone">🎮</span><span>Carteirinha Gamer</span></a>
+    <nav class="menu-principal">
+      <a href="index.html">Início</a>
+      <a href="dashboard.html">Central Gamer</a>
+      <a href="biblioteca.html">Biblioteca</a>
+      <a class="ativo" href="carteirinha.html">Carteirinha</a>
+    </nav>
+    <a class="botao" href="perfil.html">Editar perfil</a>
+  </header>
+
+  <main class="pagina">
+    <section class="carteirinha-completa">
+      <div class="cartao-identidade">
+        <div class="faixa-cartao">
+          <span>CARTEIRINHA GAMER</span>
+          <span>#PLAYER</span>
+        </div>
+
+        <div class="identidade-conteudo">
+          <div class="avatar-carteirinha" id="perfilAvatar">🕹️</div>
+          <div>
+            <p class="texto-suave">Jogador</p>
+            <h1 id="perfilNome">Visitante</h1>
+            <p><strong>❤️ Jogo favorito:</strong> <span id="perfilJogoFavorito">Nenhum</span></p>
+            <p><strong>🖥️ Plataforma favorita:</strong> <span id="perfilPlataforma">Não definida</span></p>
+            <p><strong>👑 Categoria favorita:</strong> <span id="perfilCategoria">Não definida</span></p>
+          </div>
+        </div>
+
+        <div class="estatisticas-grandes estatisticas-cartao">
+          <article><span>🎮</span><strong id="perfilTotal">0</strong><p>Jogos</p></article>
+          <article><span>🏆</span><strong id="perfilZerados">0</strong><p>Zerados</p></article>
+          <article><span>❌</span><strong id="perfilDropados">0</strong><p>Dropados</p></article>
+          <article><span>⏱️</span><strong id="perfilHoras">0h</strong><p>Horas</p></article>
+        </div>
+      </div>
+
+      <section class="painel">
+        <div class="titulo-secao">
+          <div>
+            <span class="etiqueta">Habilidades</span>
+            <h2>Estilo de jogador</h2>
+          </div>
+        </div>
+        <div class="habilidades" id="perfilHabilidades"></div>
+      </section>
+
+      <section class="painel">
+        <div class="titulo-secao">
+          <div>
+            <span class="etiqueta">Favorito</span>
+            <h2>Jogo favorito atual</h2>
+          </div>
+        </div>
+        <div id="cardFavorito"></div>
+      </section>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

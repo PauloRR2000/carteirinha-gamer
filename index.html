@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Carteirinha Gamer - seu perfil, biblioteca e histórico gamer.">
+  <title>Carteirinha Gamer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="home">
+  <header class="topo">
+    <a class="marca" href="index.html" aria-label="Ir para o início">
+      <span class="marca-icone">🎮</span>
+      <span>Carteirinha Gamer</span>
+    </a>
+
+    <nav class="menu-principal" aria-label="Navegação principal">
+      <a href="index.html">Início</a>
+      <a href="dashboard.html">Central Gamer</a>
+      <a href="biblioteca.html">Biblioteca</a>
+      <a href="carteirinha.html">Carteirinha</a>
+    </nav>
+
+    <button class="botao botao-destaque" id="botaoLogin" type="button">Entrar</button>
+  </header>
+
+  <main class="layout-principal">
+    <section class="painel noticias">
+      <div class="titulo-secao">
+        <div>
+          <span class="etiqueta">Mundo Gamer</span>
+          <h1>Notícias, lançamentos e promoções</h1>
+        </div>
+        <a class="link-discreto" href="dashboard.html">Abrir Central Gamer →</a>
+      </div>
+
+      <div class="destaque-principal">
+        <div class="destaque-texto">
+          <span class="etiqueta etiqueta-clara">Em destaque</span>
+          <h2>Seu espaço gamer em um só lugar</h2>
+          <p>Registre jogos, acompanhe conquistas, notas, horas jogadas e mantenha o histórico de cada atualização.</p>
+          <a class="botao botao-claro" href="jogo.html">+ Adicionar primeiro jogo</a>
+        </div>
+        <div class="destaque-arte" aria-hidden="true">
+          <div class="controle">🎮</div>
+          <div class="estrela estrela-1">★</div>
+          <div class="estrela estrela-2">★</div>
+          <div class="estrela estrela-3">★</div>
+        </div>
+      </div>
+
+      <div class="grade-cards" id="feedNoticias">
+        <article class="card-noticia">
+          <div class="card-icone">🚀</div>
+          <span class="etiqueta">Lançamentos</span>
+          <h3>Fique de olho nos próximos jogos</h3>
+          <p>Use este espaço para destacar lançamentos que você está acompanhando.</p>
+          <button class="link-botao" type="button" data-toast="Depois podemos conectar essa área a uma API de notícias ou cadastrar conteúdo manualmente.">Ver ideia</button>
+        </article>
+
+        <article class="card-noticia">
+          <div class="card-icone">💸</div>
+          <span class="etiqueta">Promoções</span>
+          <h3>Ofertas de plataformas e lojas</h3>
+          <p>Steam, Epic, PlayStation, Xbox e outras plataformas podem ganhar cards próprios.</p>
+          <button class="link-botao" type="button" data-toast="Nesta versão de treino, as promoções são demonstrativas.">Ver ideia</button>
+        </article>
+
+        <article class="card-noticia">
+          <div class="card-icone">📰</div>
+          <span class="etiqueta">Notícias</span>
+          <h3>Novidades do mundo gamer</h3>
+          <p>Desenvolvedoras, atualizações, eventos, trailers e curiosidades podem aparecer aqui.</p>
+          <button class="link-botao" type="button" data-toast="Podemos transformar isso em um feed real em uma fase profissional.">Ver ideia</button>
+        </article>
+      </div>
+    </section>
+
+    <aside class="coluna-lateral">
+      <section class="painel perfil-mini" id="miniCarteirinha">
+        <div class="avatar-grande" id="miniAvatar">🕹️</div>
+        <p class="texto-suave">Mini Carteirinha</p>
+        <h2 id="miniNome">Visitante</h2>
+
+        <div class="mini-estatisticas">
+          <div><strong id="miniZerados">0</strong><span>Zerados</span></div>
+          <div><strong id="miniDropados">0</strong><span>Dropados</span></div>
+          <div><strong id="miniHoras">0h</strong><span>Horas</span></div>
+        </div>
+
+        <div class="mini-favorito">
+          <span>❤️ Jogo favorito</span>
+          <strong id="miniFavorito">Nenhum</strong>
+        </div>
+
+        <a class="botao botao-largo" href="carteirinha.html">Ver carteirinha completa</a>
+      </section>
+
+      <section class="painel propaganda">
+        <span class="etiqueta">Publicidade</span>
+        <div class="propaganda-miolo">
+          <span>📢</span>
+          <strong>Espaço publicitário</strong>
+          <p>Área reservada para futuras publis, parcerias ou anúncios.</p>
+        </div>
+      </section>
+    </aside>
+  </main>
+
+  <footer class="rodape">
+    <p>Projeto de treino • Carteirinha Gamer</p>
+    <p>Feito com HTML, CSS e JavaScript.</p>
+  </footer>
+
+  <dialog class="modal-login" id="modalLogin">
+    <form method="dialog" class="formulario-login" id="formLogin">
+      <button class="fechar-modal" type="button" aria-label="Fechar" onclick="document.querySelector('#modalLogin').close()">×</button>
+      <span class="etiqueta">Login demonstrativo</span>
+      <h2>Entrar na Carteirinha Gamer</h2>
+      <p class="texto-suave">Nesta versão de treino o login é local, salvo apenas neste navegador.</p>
+
+      <label>
+        Nome de jogador
+        <input id="loginNome" name="nome" type="text" maxlength="30" placeholder="Ex.: Paulo" required>
+      </label>
+
+      <label>
+        Avatar
+        <select id="loginAvatar" name="avatar">
+          <option value="🕹️">🕹️ Arcade</option>
+          <option value="🎮">🎮 Controle</option>
+          <option value="👾">👾 Pixel</option>
+          <option value="🧙">🧙 RPG</option>
+          <option value="🥷">🥷 Ação</option>
+          <option value="🧟">🧟 Terror</option>
+        </select>
+      </label>
+
+      <button class="botao botao-destaque botao-largo" value="default" type="submit">Entrar</button>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil | Carteirinha Gamer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="perfil">
+  <header class="topo">
+    <a class="marca" href="index.html"><span class="marca-icone">🎮</span><span>Carteirinha Gamer</span></a>
+    <nav class="menu-principal">
+      <a href="index.html">Início</a>
+      <a href="dashboard.html">Central Gamer</a>
+      <a href="biblioteca.html">Biblioteca</a>
+      <a href="carteirinha.html">Carteirinha</a>
+    </nav>
+    <a class="botao" href="carteirinha.html">Voltar</a>
+  </header>
+
+  <main class="pagina pagina-formulario">
+    <section class="cabecalho-pagina">
+      <div>
+        <span class="etiqueta">Personalização</span>
+        <h1>Perfil Gamer</h1>
+        <p>Defina quem você é dentro da sua Carteirinha Gamer.</p>
+      </div>
+    </section>
+
+    <form class="painel formulario-jogo" id="formPerfil">
+      <fieldset>
+        <legend>Identidade</legend>
+
+        <div class="grade-formulario">
+          <label class="campo campo-largo">
+            Nome de jogador
+            <input id="perfilNomeInput" type="text" maxlength="30" placeholder="Seu nome ou nickname">
+          </label>
+
+          <label class="campo">
+            Avatar
+            <select id="perfilAvatarInput">
+              <option value="🕹️">🕹️ Arcade</option>
+              <option value="🎮">🎮 Controle</option>
+              <option value="👾">👾 Pixel</option>
+              <option value="🧙">🧙 RPG</option>
+              <option value="🥷">🥷 Ação</option>
+              <option value="🧟">🧟 Terror</option>
+            </select>
+          </label>
+
+          <label class="campo">
+            Plataforma favorita
+            <input id="perfilPlataformaInput" type="text" maxlength="50" placeholder="Ex.: PC">
+          </label>
+
+          <label class="campo">
+            Categoria favorita
+            <input id="perfilCategoriaInput" type="text" maxlength="50" placeholder="Ex.: Survival Horror">
+          </label>
+
+          <label class="campo campo-largo">
+            Jogo favorito
+            <select id="perfilFavoritoInput">
+              <option value="">Nenhum</option>
+            </select>
+          </label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Habilidades</legend>
+        <p class="texto-suave">Marque quantas quiser.</p>
+
+        <div class="grade-checkbox" id="habilidadesCheckbox">
+          <label><input type="checkbox" value="FPS"> 🎯 FPS</label>
+          <label><input type="checkbox" value="RPG"> ⚔️ RPG</label>
+          <label><input type="checkbox" value="Luta JxJ"> 🥊 Luta JxJ</label>
+          <label><input type="checkbox" value="Puzzle"> 🧩 Puzzle</label>
+          <label><input type="checkbox" value="Descobridor de Indies"> 💎 Descobridor de Indies</label>
+          <label><input type="checkbox" value="Terror"> 👻 Terror</label>
+          <label><input type="checkbox" value="Estratégia"> 🧠 Estratégia</label>
+          <label><input type="checkbox" value="Cooperativo"> 🤝 Cooperativo</label>
+        </div>
+      </fieldset>
+
+      <div class="acoes-formulario">
+        <a class="botao" href="carteirinha.html">Cancelar</a>
+        <button class="botao botao-destaque" type="submit">Salvar perfil</button>
+      </div>
+    </form>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>

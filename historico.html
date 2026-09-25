@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Histórico | Carteirinha Gamer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="historico">
+  <header class="topo">
+    <a class="marca" href="index.html"><span class="marca-icone">🎮</span><span>Carteirinha Gamer</span></a>
+    <nav class="menu-principal">
+      <a href="index.html">Início</a>
+      <a href="dashboard.html">Central Gamer</a>
+      <a href="biblioteca.html">Biblioteca</a>
+      <a href="carteirinha.html">Carteirinha</a>
+    </nav>
+    <a class="botao" href="dashboard.html">Voltar</a>
+  </header>
+
+  <main class="pagina">
+    <section class="cabecalho-pagina">
+      <div>
+        <span class="etiqueta">Linha do tempo</span>
+        <h1>Histórico de atualizações</h1>
+        <p>Cada vez que um jogo é editado, guardamos um retrato do estado anterior.</p>
+      </div>
+    </section>
+
+    <section class="painel">
+      <div class="linha-tempo" id="listaHistorico"></div>
+
+      <div class="estado-vazio" id="historicoVazio" hidden>
+        <span>🕘</span>
+        <h2>Ainda não há histórico</h2>
+        <p>Edite algum jogo da biblioteca e as alterações aparecerão aqui.</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

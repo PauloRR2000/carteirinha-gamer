@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Adicionar jogo | Carteirinha Gamer
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+</head>
+
+
+<body data-page="jogo">
+
+    <!-- =====================================================
+         CABEÇALHO
+    ====================================================== -->
+
+    <header class="topo">
+
+        <a
+            class="marca"
+            href="index.html"
+        >
+
+            <span class="marca-icone">
+                🎮
+            </span>
+
+            <span>
+                Carteirinha Gamer
+            </span>
+
+        </a>
+
+
+        <nav class="menu-principal">
+
+            <a href="index.html">
+                Início
+            </a>
+
+            <a href="dashboard.html">
+                Central Gamer
+            </a>
+
+            <a href="biblioteca.html">
+                Biblioteca
+            </a>
+
+            <a href="carteirinha.html">
+                Carteirinha
+            </a>
+
+        </nav>
+
+
+        <a
+            class="botao"
+            href="biblioteca.html"
+        >
+            Voltar
+        </a>
+
+    </header>
+
+
+    <!-- =====================================================
+         CONTEÚDO PRINCIPAL
+    ====================================================== -->
+
+    <main class="pagina pagina-formulario">
+
+
+        <!-- CABEÇALHO DA PÁGINA -->
+
+        <section class="cabecalho-pagina">
+
+            <div>
+
+                <span class="etiqueta">
+                    Ficha do jogo
+                </span>
+
+                <h1 id="tituloFormulario">
+                    Adicionar novo jogo
+                </h1>
+
+                <p>
+                    Preencha o que souber.
+                    Você pode atualizar tudo depois.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             FORMULÁRIO
+        ================================================== -->
+
+        <form
+            class="painel formulario-jogo"
+            id="formJogo"
+        >
+
+            <input
+                id="jogoId"
+                type="hidden"
+            >
+
+
+            <!-- =================================================
+                 INFORMAÇÕES PRINCIPAIS
+            ================================================== -->
+
+            <fieldset>
+
+                <legend>
+                    Informações principais
+                </legend>
+
+
+                <div class="grade-formulario">
+
+
+                    <!-- NOME -->
+
+                    <label class="campo campo-largo">
+
+                        Nome do jogo *
+
+                        <input
+                            id="nomeJogo"
+                            type="text"
+                            maxlength="80"
+                            required
+                            placeholder="Ex.: Resident Evil 4"
+                        >
+
+                    </label>
+
+
+                    <!-- NOTA -->
+
+                    <label class="campo">
+
+                        Nota
+
+                        <input
+                            id="notaJogo"
+                            type="number"
+                            min="0"
+                            max="10"
+                            step="0.5"
+                            placeholder="0 a 10"
+                        >
+
+                    </label>
+
+
+                    <!-- =================================================
+                         TEMPO JOGADO
+                    ================================================== -->
+
+                    <label class="campo">
+
+                        Horas jogadas
+
+                        <input
+                            id="horasJogo"
+                            type="number"
+                            min="0"
+                            step="1"
+                            inputmode="numeric"
+                            placeholder="Ex.: 1"
+                        >
+
+                        <small>
+                            Pode deixar vazio ou colocar 0.
+                        </small>
+
+                    </label>
+
+
+                    <label class="campo">
+
+                        Minutos jogados
+
+                        <input
+                            id="minutosJogo"
+                            type="number"
+                            min="0"
+                            max="59"
+                            step="1"
+                            inputmode="numeric"
+                            placeholder="Ex.: 30"
+                        >
+
+                        <small>
+                            De 0 a 59 minutos.
+                        </small>
+
+                    </label>
+
+
+                    <!-- STATUS -->
+
+                    <label class="campo">
+
+                        Status
+
+                        <select id="statusJogo">
+
+                            <option>
+                                Quero jogar
+                            </option>
+
+                            <option>
+                                Jogando
+                            </option>
+
+                            <option>
+                                Zerado
+                            </option>
+
+                            <option>
+                                100%
+                            </option>
+
+                            <option>
+                                Dropado
+                            </option>
+
+                        </select>
+
+                    </label>
+
+
+                    <!-- RECOMENDAÇÃO -->
+
+                    <label class="campo">
+
+                        Recomenda?
+
+                        <select id="recomendaJogo">
+
+                            <option value="Sim">
+                                Sim
+                            </option>
+
+                            <option value="Talvez">
+                                Talvez
+                            </option>
+
+                            <option value="Não">
+                                Não
+                            </option>
+
+                        </select>
+
+                    </label>
+
+
+                    <!-- CONQUISTAS -->
+
+                    <label class="campo">
+
+                        Conquistas obtidas
+
+                        <input
+                            id="conquistasObtidas"
+                            type="number"
+                            min="0"
+                            step="1"
+                            inputmode="numeric"
+                            placeholder="32"
+                        >
+
+                    </label>
+
+
+                    <label class="campo">
+
+                        Conquistas totais
+
+                        <input
+                            id="conquistasTotais"
+                            type="number"
+                            min="0"
+                            step="1"
+                            inputmode="numeric"
+                            placeholder="45"
+                        >
+
+                    </label>
+
+                </div>
+
+            </fieldset>
+
+
+            <!-- =================================================
+                 CLASSIFICAÇÃO
+            ================================================== -->
+
+            <fieldset>
+
+                <legend>
+                    Classificação
+                </legend>
+
+
+                <div class="grade-formulario">
+
+
+                    <!-- PLATAFORMAS -->
+
+                    <label class="campo campo-largo">
+
+                        Plataformas
+
+                        <input
+                            id="plataformasJogo"
+                            type="text"
+                            maxlength="120"
+                            placeholder="Ex.: PC, PlayStation 5"
+                        >
+
+                        <small>
+                            Separe múltiplas plataformas
+                            por vírgula.
+                        </small>
+
+                    </label>
+
+
+                    <!-- CATEGORIAS -->
+
+                    <label class="campo campo-largo">
+
+                        Categorias
+
+                        <input
+                            id="categoriasJogo"
+                            type="text"
+                            maxlength="120"
+                            placeholder="Ex.: Survival Horror, Ação"
+                        >
+
+                        <small>
+                            Separe múltiplas categorias
+                            por vírgula.
+                        </small>
+
+                    </label>
+
+
+                    <!-- REPLAY -->
+
+                    <label class="campo">
+
+                        Fator replay
+
+                        <select id="replayJogo">
+
+                            <option>
+                                Baixo
+                            </option>
+
+                            <option selected>
+                                Médio
+                            </option>
+
+                            <option>
+                                Alto
+                            </option>
+
+                            <option>
+                                Muito alto
+                            </option>
+
+                        </select>
+
+                    </label>
+
+
+                    <!-- PERSONAGEM -->
+
+                    <label class="campo">
+
+                        Personagem favorito
+
+                        <input
+                            id="personagemJogo"
+                            type="text"
+                            maxlength="60"
+                            placeholder="Ex.: Leon"
+                        >
+
+                    </label>
+
+                </div>
+
+            </fieldset>
+
+
+            <!-- =================================================
+                 EXPERIÊNCIA
+            ================================================== -->
+
+            <fieldset>
+
+                <legend>
+                    Sua experiência
+                </legend>
+
+
+                <div class="grade-formulario">
+
+
+                    <!-- GOSTOU -->
+
+                    <label class="campo campo-largo">
+
+                        O que mais gostou
+
+                        <textarea
+                            id="gostouJogo"
+                            rows="3"
+                            placeholder="Combate, exploração, história..."
+                        ></textarea>
+
+                    </label>
+
+
+                    <!-- NÃO GOSTOU -->
+
+                    <label class="campo campo-largo">
+
+                        O que não gostou
+
+                        <textarea
+                            id="naoGostouJogo"
+                            rows="3"
+                            placeholder="Pontos que poderiam melhorar..."
+                        ></textarea>
+
+                    </label>
+
+
+                    <!-- COMENTÁRIO -->
+
+                    <label class="campo campo-total">
+
+                        Comentário / experiência
+
+                        <textarea
+                            id="comentarioJogo"
+                            rows="5"
+                            placeholder="Conte como foi sua experiência com o jogo."
+                        ></textarea>
+
+                    </label>
+
+                </div>
+
+            </fieldset>
+
+
+            <!-- =================================================
+                 BOTÕES
+            ================================================== -->
+
+            <div class="acoes-formulario">
+
+                <a
+                    class="botao"
+                    href="biblioteca.html"
+                >
+                    Cancelar
+                </a>
+
+
+                <button
+                    class="botao botao-destaque"
+                    type="submit"
+                >
+                    Salvar jogo
+                </button>
+
+            </div>
+
+        </form>
+
+    </main>
+
+
+    <!-- =====================================================
+         TOAST
+    ====================================================== -->
+
+    <div
+        class="toast"
+        id="toast"
+        role="status"
+        aria-live="polite"
+    >
+    </div>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

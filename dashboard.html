@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Central Gamer | Carteirinha Gamer
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+</head>
+
+
+<body data-page="dashboard">
+
+    <!-- =====================================================
+         CABEÇALHO
+    ====================================================== -->
+
+    <header class="topo">
+
+        <a
+            class="marca"
+            href="index.html"
+        >
+
+            <span class="marca-icone">
+                🎮
+            </span>
+
+            <span>
+                Carteirinha Gamer
+            </span>
+
+        </a>
+
+
+        <nav class="menu-principal">
+
+            <a href="index.html">
+                Início
+            </a>
+
+            <a
+                class="ativo"
+                href="dashboard.html"
+            >
+                Central Gamer
+            </a>
+
+            <a href="biblioteca.html">
+                Biblioteca
+            </a>
+
+            <a href="carteirinha.html">
+                Carteirinha
+            </a>
+
+        </nav>
+
+
+        <button
+            class="botao botao-destaque"
+            id="botaoLogin"
+            type="button"
+        >
+            Entrar
+        </button>
+
+    </header>
+
+
+    <!-- =====================================================
+         CONTEÚDO PRINCIPAL
+    ====================================================== -->
+
+    <main class="pagina">
+
+        <section class="cabecalho-pagina">
+
+            <div>
+
+                <span class="etiqueta">
+                    Painel de controle
+                </span>
+
+                <h1>
+                    Central Gamer
+                </h1>
+
+                <p>
+                    Escolha o que você quer fazer agora.
+                </p>
+
+            </div>
+
+
+            <div
+                class="avatar-topo"
+                id="dashboardAvatar"
+            >
+                🕹️
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             MENU PRINCIPAL
+        ================================================== -->
+
+        <section class="grade-menu">
+
+
+            <!-- BIBLIOTECA -->
+
+            <a
+                class="card-acao"
+                href="biblioteca.html"
+            >
+
+                <span class="card-acao-icone">
+                    📚
+                </span>
+
+                <h2>
+                    Minha Biblioteca
+                </h2>
+
+                <p>
+                    Veja todos os jogos cadastrados,
+                    filtre, pesquise e edite.
+                </p>
+
+            </a>
+
+
+            <!-- ADICIONAR JOGO -->
+
+            <a
+                class="card-acao"
+                href="jogo.html"
+            >
+
+                <span class="card-acao-icone">
+                    ➕
+                </span>
+
+                <h2>
+                    Adicionar jogo
+                </h2>
+
+                <p>
+                    Cadastre um novo jogo com nota,
+                    tempo jogado, conquistas e experiência.
+                </p>
+
+            </a>
+
+
+            <!-- CARTEIRINHA -->
+
+            <a
+                class="card-acao"
+                href="carteirinha.html"
+            >
+
+                <span class="card-acao-icone">
+                    🪪
+                </span>
+
+                <h2>
+                    Minha Carteirinha
+                </h2>
+
+                <p>
+                    Veja seu perfil gamer, estatísticas,
+                    favoritos e habilidades.
+                </p>
+
+            </a>
+
+
+            <!-- HISTÓRICO -->
+
+            <a
+                class="card-acao"
+                href="historico.html"
+            >
+
+                <span class="card-acao-icone">
+                    🕘
+                </span>
+
+                <h2>
+                    Histórico
+                </h2>
+
+                <p>
+                    Acompanhe alterações feitas nos seus
+                    jogos ao longo do tempo.
+                </p>
+
+            </a>
+
+
+            <!-- PERFIL -->
+
+            <a
+                class="card-acao"
+                href="perfil.html"
+            >
+
+                <span class="card-acao-icone">
+                    👤
+                </span>
+
+                <h2>
+                    Perfil
+                </h2>
+
+                <p>
+                    Edite nome, avatar, plataforma favorita,
+                    categoria e habilidades.
+                </p>
+
+            </a>
+
+
+            <!-- CONFIGURAÇÕES -->
+
+            <a
+                class="card-acao"
+                href="configuracoes.html"
+            >
+
+                <span class="card-acao-icone">
+                    ⚙️
+                </span>
+
+                <h2>
+                    Configurações
+                </h2>
+
+                <p>
+                    Faça backup, importe seus dados
+                    ou limpe sua Carteirinha Gamer.
+                </p>
+
+            </a>
+
+        </section>
+
+
+        <!-- =================================================
+             RESUMO
+        ================================================== -->
+
+        <section
+            class="painel resumo-dashboard"
+        >
+
+            <div class="titulo-secao">
+
+                <div>
+
+                    <span class="etiqueta">
+                        Resumo
+                    </span>
+
+                    <h2>
+                        Seus números
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="estatisticas-grandes">
+
+                <article>
+
+                    <span>
+                        🎮
+                    </span>
+
+                    <strong id="dashTotal">
+                        0
+                    </strong>
+
+                    <p>
+                        Jogos cadastrados
+                    </p>
+
+                </article>
+
+
+                <article>
+
+                    <span>
+                        🏆
+                    </span>
+
+                    <strong id="dashZerados">
+                        0
+                    </strong>
+
+                    <p>
+                        Jogos zerados
+                    </p>
+
+                </article>
+
+
+                <article>
+
+                    <span>
+                        ❌
+                    </span>
+
+                    <strong id="dashDropados">
+                        0
+                    </strong>
+
+                    <p>
+                        Jogos dropados
+                    </p>
+
+                </article>
+
+
+                <article>
+
+                    <span>
+                        ⏱️
+                    </span>
+
+                    <strong id="dashHoras">
+                        0min
+                    </strong>
+
+                    <p>
+                        Tempo registrado
+                    </p>
+
+                </article>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         TOAST
+    ====================================================== -->
+
+    <div
+        class="toast"
+        id="toast"
+        role="status"
+        aria-live="polite"
+    >
+    </div>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

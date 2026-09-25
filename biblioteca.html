@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Biblioteca | Carteirinha Gamer
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+</head>
+
+<body data-page="biblioteca">
+
+    <!-- =====================================================
+         CABEÇALHO
+    ====================================================== -->
+
+    <header class="topo">
+
+        <a
+            class="marca"
+            href="index.html"
+        >
+            <span class="marca-icone">
+                🎮
+            </span>
+
+            <span>
+                Carteirinha Gamer
+            </span>
+        </a>
+
+
+        <nav class="menu-principal">
+            <a href="index.html">
+                Início
+            </a>
+
+            <a href="dashboard.html">
+                Central Gamer
+            </a>
+
+            <a
+                href="biblioteca.html"
+                class="ativo"
+            >
+                Biblioteca
+            </a>
+
+            <a href="carteirinha.html">
+                Carteirinha
+            </a>
+
+            <a href="historico.html">
+                Histórico
+            </a>
+        </nav>
+
+
+        <a
+            class="botao botao-destaque"
+            href="jogo.html"
+        >
+            + Adicionar jogo
+        </a>
+
+    </header>
+
+
+    <!-- =====================================================
+         CONTEÚDO PRINCIPAL
+    ====================================================== -->
+
+    <main class="pagina">
+
+        <section class="cabecalho-pagina">
+
+            <div>
+                <span class="etiqueta">
+                    Coleção pessoal
+                </span>
+
+                <h1>
+                    Minha Biblioteca
+                </h1>
+
+                <p>
+                    Uma planilha gamer para organizar tudo o que você jogou.
+                </p>
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             PAINEL DA BIBLIOTECA
+        ================================================== -->
+
+        <section class="painel">
+
+            <!-- FILTROS -->
+
+            <div class="barra-filtros">
+
+                <label class="campo-pesquisa">
+                    <span>
+                        🔎
+                    </span>
+
+                    <input
+                        id="buscaJogo"
+                        type="text"
+                        placeholder="Pesquisar por nome..."
+                    >
+                </label>
+
+
+                <select id="filtroStatus">
+                    <option value="todos">
+                        Todos os status
+                    </option>
+
+                    <option value="Quero jogar">
+                        Quero jogar
+                    </option>
+
+                    <option value="Jogando">
+                        Jogando
+                    </option>
+
+                    <option value="Zerado">
+                        Zerado
+                    </option>
+
+                    <option value="100%">
+                        100%
+                    </option>
+
+                    <option value="Dropado">
+                        Dropado
+                    </option>
+                </select>
+
+
+                <select id="filtroPlataforma">
+                    <option value="todas">
+                        Todas as plataformas
+                    </option>
+                </select>
+
+            </div>
+
+
+            <!-- TABELA -->
+
+            <div class="tabela-wrapper">
+
+                <table class="tabela-jogos">
+
+                    <thead>
+                        <tr>
+                            <th>
+                                Jogo
+                            </th>
+
+                            <th>
+                                Nota
+                            </th>
+
+                            <th>
+                                Tempo jogado
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                            <th>
+                                Conquistas
+                            </th>
+
+                            <th>
+                                Plataforma
+                            </th>
+
+                            <th>
+                                Recomendo
+                            </th>
+
+                            <th>
+                                Ações
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="tabelaJogos">
+                        <!-- O JavaScript preenche aqui -->
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <!-- ESTADO VAZIO -->
+
+            <div
+                class="estado-vazio"
+                id="bibliotecaVazia"
+                hidden
+            >
+                <span>
+                    🎮
+                </span>
+
+                <h2>
+                    Sua biblioteca ainda está vazia
+                </h2>
+
+                <p class="texto-suave">
+                    Adicione seu primeiro jogo para começar sua coleção.
+                </p>
+
+                <a
+                    class="botao botao-destaque"
+                    href="jogo.html"
+                >
+                    Adicionar primeiro jogo
+                </a>
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         TOAST
+    ====================================================== -->
+
+    <div
+        class="toast"
+        id="toast"
+        role="status"
+        aria-live="polite"
+    >
+    </div>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Ficha completa de um jogo na Carteirinha Gamer."
+    >
+
+    <title>Detalhes do jogo | Carteirinha Gamer</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+</head>
+
+
+<body data-page="detalhe">
+
+    <header class="topo">
+
+        <a
+            class="marca"
+            href="index.html"
+            aria-label="Ir para o início"
+        >
+            <span class="marca-icone">
+                🎮
+            </span>
+
+            <span>
+                Carteirinha Gamer
+            </span>
+        </a>
+
+
+        <nav
+            class="menu-principal"
+            aria-label="Navegação principal"
+        >
+
+            <a href="index.html">
+                Início
+            </a>
+
+            <a href="dashboard.html">
+                Central Gamer
+            </a>
+
+            <a
+                class="ativo"
+                href="biblioteca.html"
+            >
+                Biblioteca
+            </a>
+
+            <a href="carteirinha.html">
+                Carteirinha
+            </a>
+
+        </nav>
+
+
+        <a
+            class="botao"
+            href="biblioteca.html"
+        >
+            ← Biblioteca
+        </a>
+
+    </header>
+
+
+    <main class="pagina">
+
+        <section class="detalhe-hero painel">
+
+            <div class="detalhe-icone">
+                🎮
+            </div>
+
+
+            <div class="detalhe-titulo">
+
+                <span class="etiqueta">
+                    Ficha do jogo
+                </span>
+
+                <h1 id="detalheNome">
+                    Jogo
+                </h1>
+
+                <div class="detalhe-resumo">
+
+                    <span id="detalheStatus">
+                        —
+                    </span>
+
+                    <span>
+                        ⭐
+                        <strong id="detalheNota">
+                            —
+                        </strong>
+                    </span>
+
+                    <span>
+                        ⏱️
+                        <strong id="detalheHoras">
+                            0h
+                        </strong>
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <a
+                class="botao botao-destaque"
+                id="detalheEditar"
+                href="#"
+            >
+                ✏️ Editar jogo
+            </a>
+
+        </section>
+
+
+        <section class="grade-detalhes">
+
+            <article class="painel detalhe-card">
+
+                <span class="detalhe-card-icone">
+                    🏅
+                </span>
+
+                <p>
+                    Conquistas
+                </p>
+
+                <strong id="detalheConquistas">
+                    0 / 0
+                </strong>
+
+            </article>
+
+
+            <article class="painel detalhe-card">
+
+                <span class="detalhe-card-icone">
+                    👍
+                </span>
+
+                <p>
+                    Recomendo
+                </p>
+
+                <strong id="detalheRecomenda">
+                    —
+                </strong>
+
+            </article>
+
+
+            <article class="painel detalhe-card">
+
+                <span class="detalhe-card-icone">
+                    🔄
+                </span>
+
+                <p>
+                    Fator Replay
+                </p>
+
+                <strong id="detalheReplay">
+                    —
+                </strong>
+
+            </article>
+
+
+            <article class="painel detalhe-card">
+
+                <span class="detalhe-card-icone">
+                    ❤️
+                </span>
+
+                <p>
+                    Personagem favorito
+                </p>
+
+                <strong id="detalhePersonagem">
+                    —
+                </strong>
+
+            </article>
+
+        </section>
+
+
+        <section class="detalhe-duas-colunas">
+
+            <article class="painel detalhe-bloco">
+
+                <span class="etiqueta">
+                    Plataformas
+                </span>
+
+                <h2>
+                    Onde joguei
+                </h2>
+
+                <div
+                    class="lista-tags"
+                    id="detalhePlataformas"
+                >
+                </div>
+
+            </article>
+
+
+            <article class="painel detalhe-bloco">
+
+                <span class="etiqueta">
+                    Categorias
+                </span>
+
+                <h2>
+                    Tipo de jogo
+                </h2>
+
+                <div
+                    class="lista-tags"
+                    id="detalheCategorias"
+                >
+                </div>
+
+            </article>
+
+        </section>
+
+
+        <section class="painel detalhe-experiencia">
+
+            <div class="titulo-secao">
+
+                <div>
+
+                    <span class="etiqueta">
+                        Experiência
+                    </span>
+
+                    <h2>
+                        Minha opinião
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="experiencia-grid">
+
+                <article class="experiencia-positiva">
+
+                    <h3>
+                        ✅ O que gostei
+                    </h3>
+
+                    <p id="detalheGostou">
+                        —
+                    </p>
+
+                </article>
+
+
+                <article class="experiencia-negativa">
+
+                    <h3>
+                        ❌ O que não gostei
+                    </h3>
+
+                    <p id="detalheNaoGostou">
+                        —
+                    </p>
+
+                </article>
+
+            </div>
+
+
+            <article class="comentario-completo">
+
+                <h3>
+                    💬 Minha experiência com o jogo
+                </h3>
+
+                <p id="detalheComentario">
+                    —
+                </p>
+
+            </article>
+
+
+            <p class="detalhe-data">
+
+                Última atualização:
+
+                <strong id="detalheAtualizado">
+                    —
+                </strong>
+
+            </p>
+
+        </section>
+
+
+        <section class="painel detalhe-historico">
+
+            <div class="titulo-secao">
+
+                <div>
+
+                    <span class="etiqueta">
+                        Histórico
+                    </span>
+
+                    <h2>
+                        Evolução da experiência
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="linha-tempo"
+                id="detalheHistorico"
+            >
+            </div>
+
+
+            <div
+                class="estado-vazio"
+                id="detalheHistoricoVazio"
+                hidden
+            >
+
+                <span>
+                    🕘
+                </span>
+
+                <h3>
+                    Ainda não existem alterações
+                </h3>
+
+                <p>
+                    Quando você editar este jogo,
+                    o histórico aparecerá aqui.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

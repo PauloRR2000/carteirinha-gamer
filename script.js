@@ -4,6 +4,12 @@ const STORAGE = {
     historico: "cg_historico"
 };
 
+const API_CATALOGO =
+    "https://carteirinha-gamer-api.pauloricardo59143.workers.dev";
+
+let catalogoJogoSelecionado =
+    null;
+
 const perfilPadrao = {
     nome: "Visitante",
     avatar: "🕹️",
@@ -1376,6 +1382,1047 @@ function excluirJogo(
 }
 
 
+
+/* =========================================================
+   CATÁLOGO DE JOGOS
+========================================================= */
+
+function obterAnoCatalogo(
+    data
+) {
+
+    if (!data) {
+
+        return "";
+    }
+
+
+    const ano =
+        String(data)
+            .slice(
+                0,
+                4
+            );
+
+
+    return /^\d{4}$/.test(
+        ano
+    )
+        ? ano
+        : "";
+}
+
+
+function configurarBuscaCatalogo(
+    jogoExistente = null
+) {
+
+    const busca =
+        document.querySelector(
+            "#buscaCatalogo"
+        );
+
+    const botao =
+        document.querySelector(
+            "#btnBuscarCatalogo"
+        );
+
+    const resultados =
+        document.querySelector(
+            "#resultadosCatalogo"
+        );
+
+    const status =
+        document.querySelector(
+            "#statusCatalogo"
+        );
+
+    const cardSelecionado =
+        document.querySelector(
+            "#jogoCatalogoSelecionado"
+        );
+
+    const capaSelecionada =
+        document.querySelector(
+            "#catalogoCapaSelecionada"
+        );
+
+    const nomeSelecionado =
+        document.querySelector(
+            "#catalogoNomeSelecionado"
+        );
+
+    const metaSelecionada =
+        document.querySelector(
+            "#catalogoMetaSelecionada"
+        );
+
+    const desenvolvedoraSelecionada =
+        document.querySelector(
+            "#catalogoDesenvolvedoraSelecionada"
+        );
+
+    const plataformasDisponiveisBloco =
+        document.querySelector(
+            "#catalogoPlataformasDisponiveis"
+        );
+
+    const plataformasDisponiveisTags =
+        document.querySelector(
+            "#catalogoPlataformasTags"
+        );
+
+    const seletorPlataformas =
+        document.querySelector(
+            "#seletorPlataformas"
+        );
+
+    const opcoesPlataformas =
+        document.querySelector(
+            "#opcoesPlataformas"
+        );
+
+    const plataformasJogo =
+        document.querySelector(
+            "#plataformasJogo"
+        );
+
+    const botaoLimpar =
+        document.querySelector(
+            "#btnLimparCatalogo"
+        );
+
+
+    if (
+        !busca ||
+        !botao ||
+        !resultados
+    ) {
+
+        return;
+    }
+
+
+    function plataformasDisponiveisDoCatalogo() {
+
+        if (
+            !catalogoJogoSelecionado
+        ) {
+
+            return [];
+        }
+
+
+        const lista =
+            catalogoJogoSelecionado
+                .plataformasDisponiveis ||
+            [];
+
+
+        return Array.isArray(lista)
+            ? lista.filter(Boolean)
+            : [];
+    }
+
+
+    if (
+        jogoExistente?.catalogo?.fonte ===
+            "RAWG"
+    ) {
+
+        const catalogoExistente =
+            jogoExistente.catalogo;
+
+
+        catalogoJogoSelecionado = {
+            ...catalogoExistente,
+
+            nome:
+                jogoExistente.nome ||
+                "",
+
+            generos:
+                [
+                    ...(
+                        catalogoExistente
+                            .generos ||
+                        jogoExistente
+                            .categorias ||
+                        []
+                    )
+                ],
+
+            plataformasDisponiveis:
+                [
+                    ...(
+                        catalogoExistente
+                            .plataformasDisponiveis ||
+                        []
+                    )
+                ]
+        };
+
+        busca.value =
+            jogoExistente.nome ||
+            "";
+
+    } else {
+
+        catalogoJogoSelecionado =
+            null;
+    }
+
+
+    function mostrarStatus(
+        mensagem = ""
+    ) {
+
+        if (!status) {
+
+            return;
+        }
+
+
+        status.textContent =
+            mensagem;
+
+        status.hidden =
+            !mensagem;
+    }
+
+
+    function limparResultados() {
+
+        resultados.innerHTML =
+            "";
+    }
+
+
+    function atualizarMarcacoesPlataformas() {
+
+        if (
+            !opcoesPlataformas ||
+            !plataformasJogo
+        ) {
+
+            return;
+        }
+
+
+        const selecionadas =
+            lerLista(
+                plataformasJogo.value
+            );
+
+
+        opcoesPlataformas
+            .querySelectorAll(
+                'input[type="checkbox"]'
+            )
+            .forEach(
+                input => {
+
+                    input.checked =
+                        selecionadas
+                            .includes(
+                                input.value
+                            );
+                }
+            );
+    }
+
+
+    function sincronizarCampoPlataformas() {
+
+        if (
+            !opcoesPlataformas ||
+            !plataformasJogo
+        ) {
+
+            return;
+        }
+
+
+        const disponiveis =
+            plataformasDisponiveisDoCatalogo();
+
+
+        const marcadas =
+            [
+                ...opcoesPlataformas
+                    .querySelectorAll(
+                        'input[type="checkbox"]:checked'
+                    )
+            ]
+                .map(
+                    input =>
+                        input.value
+                );
+
+
+        const atuais =
+            lerLista(
+                plataformasJogo.value
+            );
+
+
+        const extras =
+            atuais.filter(
+                plataforma =>
+                    !disponiveis.includes(
+                        plataforma
+                    )
+            );
+
+
+        plataformasJogo.value =
+            [
+                ...new Set(
+                    [
+                        ...marcadas,
+                        ...extras
+                    ]
+                )
+            ].join(", ");
+    }
+
+
+    function renderizarOpcoesPlataformas() {
+
+        if (
+            !seletorPlataformas ||
+            !opcoesPlataformas
+        ) {
+
+            return;
+        }
+
+
+        const disponiveis =
+            plataformasDisponiveisDoCatalogo();
+
+
+        if (!disponiveis.length) {
+
+            seletorPlataformas.hidden =
+                true;
+
+            opcoesPlataformas.innerHTML =
+                "";
+
+            return;
+        }
+
+
+        seletorPlataformas.hidden =
+            false;
+
+        opcoesPlataformas.innerHTML =
+            "";
+
+
+        const jaSelecionadas =
+            plataformasJogo
+                ? lerLista(
+                    plataformasJogo.value
+                )
+                : [];
+
+
+        disponiveis.forEach(
+            plataforma => {
+
+                const label =
+                    document.createElement(
+                        "label"
+                    );
+
+                label.className =
+                    "opcao-plataforma";
+
+
+                const input =
+                    document.createElement(
+                        "input"
+                    );
+
+                input.type =
+                    "checkbox";
+
+                input.value =
+                    plataforma;
+
+                input.checked =
+                    jaSelecionadas.includes(
+                        plataforma
+                    );
+
+
+                const texto =
+                    document.createElement(
+                        "span"
+                    );
+
+                texto.textContent =
+                    plataforma;
+
+
+                input.addEventListener(
+                    "change",
+                    sincronizarCampoPlataformas
+                );
+
+
+                label.append(
+                    input,
+                    texto
+                );
+
+                opcoesPlataformas
+                    .appendChild(
+                        label
+                    );
+            }
+        );
+    }
+
+
+    function renderizarSelecionado() {
+
+        if (!cardSelecionado) {
+
+            return;
+        }
+
+
+        if (
+            !catalogoJogoSelecionado
+        ) {
+
+            cardSelecionado.hidden =
+                true;
+
+            if (
+                plataformasDisponiveisBloco
+            ) {
+
+                plataformasDisponiveisBloco
+                    .hidden =
+                        true;
+            }
+
+            renderizarOpcoesPlataformas();
+
+            return;
+        }
+
+
+        cardSelecionado.hidden =
+            false;
+
+
+        if (nomeSelecionado) {
+
+            nomeSelecionado.textContent =
+                catalogoJogoSelecionado
+                    .nome ||
+                "Jogo selecionado";
+        }
+
+
+        const ano =
+            obterAnoCatalogo(
+                catalogoJogoSelecionado
+                    .lancamento
+            );
+
+
+        const plataformasDisponiveis =
+            plataformasDisponiveisDoCatalogo();
+
+
+        const resumoPlataformas =
+            plataformasDisponiveis
+                .slice(
+                    0,
+                    4
+                )
+                .join(
+                    " • "
+                );
+
+
+        if (metaSelecionada) {
+
+            metaSelecionada.textContent =
+                [
+                    ano,
+                    resumoPlataformas
+                ]
+                    .filter(
+                        Boolean
+                    )
+                    .join(
+                        " • "
+                    ) ||
+                "Informações públicas carregadas.";
+        }
+
+
+        const desenvolvedoras =
+            (
+                catalogoJogoSelecionado
+                    .desenvolvedoras ||
+                []
+            )
+                .join(
+                    ", "
+                );
+
+
+        if (
+            desenvolvedoraSelecionada
+        ) {
+
+            desenvolvedoraSelecionada
+                .textContent =
+                    desenvolvedoras
+                        ? `Desenvolvedora: ${desenvolvedoras}`
+                        : "";
+        }
+
+
+        if (
+            plataformasDisponiveisBloco &&
+            plataformasDisponiveisTags
+        ) {
+
+            plataformasDisponiveisBloco
+                .hidden =
+                    !plataformasDisponiveis
+                        .length;
+
+            plataformasDisponiveisTags
+                .innerHTML =
+                    plataformasDisponiveis
+                        .map(
+                            plataforma =>
+                                `
+                                    <span class="tag-detalhe tag-catalogo-plataforma">
+                                        ${escaparHTML(
+                                            plataforma
+                                        )}
+                                    </span>
+                                `
+                        )
+                        .join("");
+        }
+
+
+        if (capaSelecionada) {
+
+            const capa =
+                catalogoJogoSelecionado
+                    .capa;
+
+
+            if (capa) {
+
+                capaSelecionada.innerHTML =
+                    `
+                        <img
+                            src="${escaparHTML(
+                                capa
+                            )}"
+                            alt="Capa de ${escaparHTML(
+                                catalogoJogoSelecionado
+                                    .nome ||
+                                "jogo"
+                            )}"
+                            loading="lazy"
+                        >
+                    `;
+
+            } else {
+
+                capaSelecionada.textContent =
+                    "🎮";
+            }
+        }
+
+
+        renderizarOpcoesPlataformas();
+    }
+
+
+    async function selecionarJogo(
+        resumo
+    ) {
+
+        mostrarStatus(
+            "Carregando informações do jogo..."
+        );
+
+
+        try {
+
+            const resposta =
+                await fetch(
+                    `${API_CATALOGO}/jogo/${encodeURIComponent(
+                        resumo.id
+                    )}`
+                );
+
+
+            const dados =
+                await resposta.json();
+
+
+            if (
+                !resposta.ok ||
+                !dados.sucesso
+            ) {
+
+                throw new Error(
+                    dados.mensagem ||
+                    "Falha ao carregar detalhes."
+                );
+            }
+
+
+            const jogo =
+                dados.jogo;
+
+
+            const catalogoAnteriorId =
+                catalogoJogoSelecionado
+                    ?.id ??
+                null;
+
+
+            catalogoJogoSelecionado = {
+                fonte:
+                    "RAWG",
+
+                id:
+                    jogo.id,
+
+                nome:
+                    jogo.nome ||
+                    resumo.nome ||
+                    "",
+
+                slug:
+                    jogo.slug ||
+                    resumo.slug ||
+                    "",
+
+                capa:
+                    jogo.capa ||
+                    resumo.capa ||
+                    "",
+
+                lancamento:
+                    jogo.lancamento ||
+                    resumo.lancamento ||
+                    "",
+
+                notaRawg:
+                    jogo.notaRawg ??
+                    resumo.notaRawg ??
+                    null,
+
+                metacritic:
+                    jogo.metacritic ??
+                    resumo.metacritic ??
+                    null,
+
+                generos:
+                    [
+                        ...(
+                            jogo.generos ||
+                            resumo.generos ||
+                            []
+                        )
+                    ],
+
+                plataformasDisponiveis:
+                    [
+                        ...(
+                            jogo.plataformas ||
+                            resumo.plataformas ||
+                            []
+                        )
+                    ],
+
+                desenvolvedoras:
+                    [
+                        ...(
+                            jogo.desenvolvedoras ||
+                            []
+                        )
+                    ],
+
+                publicadoras:
+                    [
+                        ...(
+                            jogo.publicadoras ||
+                            []
+                        )
+                    ],
+
+                classificacao:
+                    jogo.classificacao ||
+                    ""
+            };
+
+
+            document.querySelector(
+                "#nomeJogo"
+            ).value =
+                catalogoJogoSelecionado
+                    .nome;
+
+
+            document.querySelector(
+                "#categoriasJogo"
+            ).value =
+                catalogoJogoSelecionado
+                    .generos
+                    .join(
+                        ", "
+                    );
+
+
+            if (
+                plataformasJogo &&
+                catalogoAnteriorId !==
+                    catalogoJogoSelecionado.id
+            ) {
+
+                plataformasJogo.value =
+                    "";
+            }
+
+
+            busca.value =
+                catalogoJogoSelecionado
+                    .nome;
+
+
+            limparResultados();
+
+            mostrarStatus();
+
+            renderizarSelecionado();
+
+
+            mostrarToast(
+                "Jogo encontrado. Agora selecione em qual plataforma você jogou."
+            );
+
+        } catch (erro) {
+
+            console.error(
+                "Erro ao selecionar jogo:",
+                erro
+            );
+
+
+            mostrarStatus(
+                "Não foi possível carregar este jogo. Você ainda pode preencher a ficha manualmente."
+            );
+        }
+    }
+
+
+    function renderizarResultados(
+        lista
+    ) {
+
+        limparResultados();
+
+
+        if (!lista.length) {
+
+            mostrarStatus(
+                "Nenhum jogo encontrado com esse nome."
+            );
+
+            return;
+        }
+
+
+        mostrarStatus(
+            `${lista.length} resultado(s) encontrado(s).`
+        );
+
+
+        lista.forEach(
+            jogo => {
+
+                const item =
+                    document.createElement(
+                        "button"
+                    );
+
+
+                item.type =
+                    "button";
+
+                item.className =
+                    "resultado-catalogo";
+
+
+                const ano =
+                    obterAnoCatalogo(
+                        jogo.lancamento
+                    );
+
+
+                const plataformas =
+                    (
+                        jogo.plataformas ||
+                        []
+                    )
+                        .slice(
+                            0,
+                            3
+                        )
+                        .join(
+                            " • "
+                        );
+
+
+                item.innerHTML =
+                    `
+                        <span
+                            class="resultado-catalogo-capa"
+                        >
+                            ${
+                                jogo.capa
+                                    ? `
+                                        <img
+                                            src="${escaparHTML(
+                                                jogo.capa
+                                            )}"
+                                            alt=""
+                                            loading="lazy"
+                                        >
+                                    `
+                                    : `
+                                        <span
+                                            class="resultado-catalogo-sem-capa"
+                                            aria-hidden="true"
+                                        >
+                                            🎮
+                                        </span>
+                                    `
+                            }
+                        </span>
+
+                        <span
+                            class="resultado-catalogo-info"
+                        >
+                            <strong>
+                                ${escaparHTML(
+                                    jogo.nome ||
+                                    "Jogo sem nome"
+                                )}
+                            </strong>
+
+                            <small>
+                                ${escaparHTML(
+                                    [
+                                        ano,
+                                        plataformas
+                                    ]
+                                        .filter(
+                                            Boolean
+                                        )
+                                        .join(
+                                            " • "
+                                        ) ||
+                                    "Sem informações adicionais"
+                                )}
+                            </small>
+                        </span>
+
+                        <span
+                            class="resultado-catalogo-seta"
+                            aria-hidden="true"
+                        >
+                            →
+                        </span>
+                    `;
+
+
+                item.addEventListener(
+                    "click",
+                    () => {
+
+                        selecionarJogo(
+                            jogo
+                        );
+                    }
+                );
+
+
+                resultados.appendChild(
+                    item
+                );
+            }
+        );
+    }
+
+
+    async function pesquisar() {
+
+        const termo =
+            busca.value
+                .trim();
+
+
+        if (
+            termo.length <
+            3
+        ) {
+
+            limparResultados();
+
+            mostrarStatus(
+                "Digite pelo menos 3 caracteres para pesquisar."
+            );
+
+            return;
+        }
+
+
+        botao.disabled =
+            true;
+
+        botao.textContent =
+            "Buscando...";
+
+        mostrarStatus(
+            "Pesquisando no catálogo..."
+        );
+
+
+        try {
+
+            const resposta =
+                await fetch(
+                    `${API_CATALOGO}/buscar?q=${encodeURIComponent(
+                        termo
+                    )}`
+                );
+
+
+            const dados =
+                await resposta.json();
+
+
+            if (
+                !resposta.ok ||
+                !dados.sucesso
+            ) {
+
+                throw new Error(
+                    dados.mensagem ||
+                    "Falha na pesquisa."
+                );
+            }
+
+
+            renderizarResultados(
+                Array.isArray(
+                    dados.jogos
+                )
+                    ? dados.jogos
+                    : []
+            );
+
+        } catch (erro) {
+
+            console.error(
+                "Erro ao pesquisar catálogo:",
+                erro
+            );
+
+
+            limparResultados();
+
+            mostrarStatus(
+                "Não foi possível acessar o catálogo agora. O preenchimento manual continua disponível."
+            );
+
+        } finally {
+
+            botao.disabled =
+                false;
+
+            botao.textContent =
+                "🔎 Buscar";
+        }
+    }
+
+
+    botao.addEventListener(
+        "click",
+        pesquisar
+    );
+
+
+    busca.addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.key ===
+                "Enter"
+            ) {
+
+                event.preventDefault();
+
+                pesquisar();
+            }
+        }
+    );
+
+
+    if (plataformasJogo) {
+
+        plataformasJogo.addEventListener(
+            "input",
+            atualizarMarcacoesPlataformas
+        );
+    }
+
+
+    if (botaoLimpar) {
+
+        botaoLimpar.addEventListener(
+            "click",
+            () => {
+
+                catalogoJogoSelecionado =
+                    null;
+
+                renderizarSelecionado();
+
+                mostrarToast(
+                    "Vínculo com o catálogo removido. A ficha continua preenchida."
+                );
+            }
+        );
+    }
+
+
+    renderizarSelecionado();
+}
+
+
 /* =========================================================
    FORMULÁRIO DE JOGO
 ========================================================= */
@@ -1604,6 +2651,11 @@ function prepararFormularioJogo() {
     }
 
 
+    configurarBuscaCatalogo(
+        existente
+    );
+
+
     form.addEventListener(
         "submit",
         event => {
@@ -1787,6 +2839,87 @@ function prepararFormularioJogo() {
                         )
                         .value
                         .trim(),
+
+
+                catalogo:
+                    catalogoJogoSelecionado
+
+                        ? {
+                            fonte:
+                                "RAWG",
+
+                            id:
+                                catalogoJogoSelecionado
+                                    .id,
+
+                            slug:
+                                catalogoJogoSelecionado
+                                    .slug ||
+                                "",
+
+                            capa:
+                                catalogoJogoSelecionado
+                                    .capa ||
+                                "",
+
+                            lancamento:
+                                catalogoJogoSelecionado
+                                    .lancamento ||
+                                "",
+
+                            notaRawg:
+                                catalogoJogoSelecionado
+                                    .notaRawg ??
+                                null,
+
+                            metacritic:
+                                catalogoJogoSelecionado
+                                    .metacritic ??
+                                null,
+
+                            generos:
+                                [
+                                    ...(
+                                        catalogoJogoSelecionado
+                                            .generos ||
+                                        []
+                                    )
+                                ],
+
+                            plataformasDisponiveis:
+                                [
+                                    ...(
+                                        catalogoJogoSelecionado
+                                            .plataformasDisponiveis ||
+                                        []
+                                    )
+                                ],
+
+                            desenvolvedoras:
+                                [
+                                    ...(
+                                        catalogoJogoSelecionado
+                                            .desenvolvedoras ||
+                                        []
+                                    )
+                                ],
+
+                            publicadoras:
+                                [
+                                    ...(
+                                        catalogoJogoSelecionado
+                                            .publicadoras ||
+                                        []
+                                    )
+                                ],
+
+                            classificacao:
+                                catalogoJogoSelecionado
+                                    .classificacao ||
+                                ""
+                        }
+
+                        : null,
 
 
                 criadoEm:

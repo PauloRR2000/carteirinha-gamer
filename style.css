@@ -1216,6 +1216,442 @@ textarea {
 
 
 /* =========================================================
+   CATÁLOGO DE JOGOS
+========================================================= */
+
+.busca-catalogo {
+    margin-bottom: 30px;
+    padding: 22px;
+
+    border:
+        1px solid
+        var(--borda);
+
+    border-radius: 18px;
+
+    background:
+        rgba(
+            143,
+            124,
+            255,
+            0.055
+        );
+}
+
+.busca-catalogo-cabecalho {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+    gap: 18px;
+
+    margin-bottom: 18px;
+}
+
+.busca-catalogo-cabecalho h2 {
+    margin:
+        8px
+        0
+        5px;
+}
+
+.busca-catalogo-cabecalho p {
+    margin: 0;
+}
+
+.busca-catalogo-linha {
+    display: grid;
+
+    grid-template-columns:
+        1fr;
+}
+
+.busca-catalogo-controles {
+    display: grid;
+
+    grid-template-columns:
+        minmax(
+            0,
+            1fr
+        )
+        auto;
+
+    gap: 10px;
+}
+
+.busca-catalogo-controles input {
+    min-height: 46px;
+}
+
+.busca-catalogo-controles .botao {
+    min-width: 125px;
+}
+
+.status-catalogo {
+    margin:
+        14px
+        0
+        0;
+}
+
+.resultados-catalogo {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(
+                0,
+                1fr
+            )
+        );
+
+    gap: 10px;
+
+    margin-top: 14px;
+}
+
+.resultado-catalogo {
+    display: grid;
+
+    grid-template-columns:
+        74px
+        minmax(
+            0,
+            1fr
+        )
+        auto;
+
+    gap: 12px;
+
+    align-items: center;
+
+    width: 100%;
+
+    min-height: 92px;
+
+    padding: 9px;
+
+    border:
+        1px solid
+        var(--borda);
+
+    border-radius: 14px;
+
+    background:
+        #151923;
+
+    color:
+        var(--texto);
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+        transform
+        0.16s
+        ease,
+        border-color
+        0.16s
+        ease,
+        background
+        0.16s
+        ease;
+}
+
+.resultado-catalogo:hover {
+    transform:
+        translateY(
+            -2px
+        );
+
+    border-color:
+        var(--destaque);
+
+    background:
+        var(--painel-2);
+}
+
+.resultado-catalogo-capa {
+    display: grid;
+
+    place-items: center;
+
+    width: 74px;
+    height: 74px;
+
+    overflow: hidden;
+
+    border-radius: 11px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.06
+        );
+}
+
+.resultado-catalogo-capa img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+.resultado-catalogo-sem-capa {
+    font-size: 2rem;
+}
+
+.resultado-catalogo-info {
+    min-width: 0;
+}
+
+.resultado-catalogo-info strong,
+.resultado-catalogo-info small {
+    display: block;
+}
+
+.resultado-catalogo-info strong {
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+}
+
+.resultado-catalogo-info small {
+    margin-top: 6px;
+
+    color:
+        var(--texto-suave);
+
+    line-height: 1.4;
+}
+
+.resultado-catalogo-seta {
+    padding-right: 6px;
+
+    color:
+        var(--destaque);
+
+    font-size: 1.4rem;
+
+    font-weight: 900;
+}
+
+.jogo-catalogo-selecionado {
+    display: grid;
+
+    grid-template-columns:
+        110px
+        minmax(
+            0,
+            1fr
+        )
+        auto;
+
+    gap: 18px;
+
+    align-items: center;
+
+    margin-top: 18px;
+
+    padding: 14px;
+
+    border:
+        1px solid
+        var(--destaque);
+
+    border-radius: 16px;
+
+    background:
+        rgba(
+            143,
+            124,
+            255,
+            0.09
+        );
+}
+
+.jogo-catalogo-selecionado[hidden] {
+    display: none;
+}
+
+.catalogo-capa-selecionada {
+    display: grid;
+
+    place-items: center;
+
+    width: 110px;
+    height: 110px;
+
+    overflow: hidden;
+
+    border-radius: 14px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.06
+        );
+
+    font-size: 2.6rem;
+}
+
+.catalogo-capa-selecionada img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+.catalogo-selecionado-info h3 {
+    margin:
+        7px
+        0
+        6px;
+}
+
+.catalogo-selecionado-info p {
+    margin:
+        3px
+        0;
+}
+
+.catalogo-plataformas-disponiveis {
+    margin-top: 12px;
+}
+
+.catalogo-plataformas-disponiveis > strong {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-size: 0.82rem;
+}
+
+.lista-tags-compacta {
+    gap: 7px;
+}
+
+.tag-catalogo-plataforma {
+    padding: 6px 9px;
+
+    font-size: 0.76rem;
+
+    box-shadow: 2px 2px 0 #000;
+}
+
+.seletor-plataformas {
+    padding: 14px;
+
+    border:
+        1px solid
+        var(--borda);
+
+    border-radius: 14px;
+
+    background:
+        rgba(
+            143,
+            124,
+            255,
+            0.05
+        );
+}
+
+.seletor-plataformas[hidden] {
+    display: none;
+}
+
+.seletor-plataformas p {
+    margin:
+        0
+        0
+        12px;
+
+    font-weight: 500;
+}
+
+.opcoes-plataformas {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 9px;
+}
+
+.opcao-plataforma {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 9px 11px;
+
+    border:
+        1px solid
+        var(--borda);
+
+    border-radius: 999px;
+
+    background: #151923;
+
+    color: var(--texto);
+
+    font-size: 0.86rem;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition:
+        border-color 0.16s ease,
+        background 0.16s ease,
+        transform 0.16s ease;
+}
+
+.opcao-plataforma:hover {
+    transform:
+        translateY(-1px);
+
+    border-color:
+        var(--destaque);
+}
+
+.opcao-plataforma:has(input:checked) {
+    border-color:
+        var(--destaque);
+
+    background:
+        rgba(
+            143,
+            124,
+            255,
+            0.16
+        );
+}
+
+.opcao-plataforma input {
+    width: 16px;
+    height: 16px;
+
+    margin: 0;
+
+    accent-color:
+        var(--destaque);
+}
+
+
+/* =========================================================
    CARTEIRINHA COMPLETA
 ========================================================= */
 
@@ -2114,6 +2550,32 @@ textarea {
         font-size: 0.78rem;
     }
 
+    .busca-catalogo-cabecalho {
+        flex-direction:
+            column;
+    }
+
+    .resultados-catalogo {
+        grid-template-columns:
+            1fr;
+    }
+
+    .jogo-catalogo-selecionado {
+        grid-template-columns:
+            90px
+            1fr;
+    }
+
+    .jogo-catalogo-selecionado > .botao {
+        grid-column:
+            1 / -1;
+    }
+
+    .catalogo-capa-selecionada {
+        width: 90px;
+        height: 90px;
+    }
+
     .estatisticas-cartao {
         padding:
             0
@@ -2124,6 +2586,20 @@ textarea {
 
 
 @media (max-width: 650px) {
+
+    .busca-catalogo-controles {
+        grid-template-columns:
+            1fr;
+    }
+
+    .busca-catalogo-controles .botao {
+        width: 100%;
+    }
+
+    .jogo-catalogo-selecionado {
+        grid-template-columns:
+            1fr;
+    }
 
     .detalhe-hero {
         grid-template-columns:

@@ -122,6 +122,168 @@
 
 
             <!-- =================================================
+                 CATÁLOGO DE JOGOS
+            ================================================== -->
+
+            <section class="busca-catalogo">
+
+                <div class="busca-catalogo-cabecalho">
+
+                    <div>
+
+                        <span class="etiqueta">
+                            Catálogo online
+                        </span>
+
+                        <h2>
+                            Pesquisar jogo
+                        </h2>
+
+                        <p class="texto-suave">
+                            Encontre um jogo para preencher
+                            automaticamente nome, plataformas
+                            e categorias.
+                        </p>
+
+                    </div>
+
+
+                    <a
+                        class="link-discreto"
+                        href="https://rawg.io/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Dados públicos via RAWG ↗
+                    </a>
+
+                </div>
+
+
+                <div class="busca-catalogo-linha">
+
+                    <label class="campo campo-total">
+
+                        Nome do jogo no catálogo
+
+                        <div class="busca-catalogo-controles">
+
+                            <input
+                                id="buscaCatalogo"
+                                type="search"
+                                maxlength="80"
+                                autocomplete="off"
+                                placeholder="Ex.: Resident Evil 4"
+                            >
+
+                            <button
+                                class="botao botao-destaque"
+                                id="btnBuscarCatalogo"
+                                type="button"
+                            >
+                                🔎 Buscar
+                            </button>
+
+                        </div>
+
+                        <small>
+                            Digite pelo menos 3 caracteres.
+                            Você também pode ignorar esta busca
+                            e preencher a ficha manualmente.
+                        </small>
+
+                    </label>
+
+                </div>
+
+
+                <p
+                    class="status-catalogo texto-suave"
+                    id="statusCatalogo"
+                    hidden
+                >
+                </p>
+
+
+                <div
+                    class="resultados-catalogo"
+                    id="resultadosCatalogo"
+                >
+                </div>
+
+
+                <article
+                    class="jogo-catalogo-selecionado"
+                    id="jogoCatalogoSelecionado"
+                    hidden
+                >
+
+                    <div
+                        class="catalogo-capa-selecionada"
+                        id="catalogoCapaSelecionada"
+                    >
+                        🎮
+                    </div>
+
+
+                    <div class="catalogo-selecionado-info">
+
+                        <span class="etiqueta">
+                            Jogo selecionado
+                        </span>
+
+                        <h3 id="catalogoNomeSelecionado">
+                            —
+                        </h3>
+
+                        <p
+                            class="texto-suave"
+                            id="catalogoMetaSelecionada"
+                        >
+                            —
+                        </p>
+
+                        <p
+                            class="texto-suave"
+                            id="catalogoDesenvolvedoraSelecionada"
+                        >
+                        </p>
+
+                        <div
+                            class="catalogo-plataformas-disponiveis"
+                            id="catalogoPlataformasDisponiveis"
+                            hidden
+                        >
+
+                            <strong>
+                                Disponível em
+                            </strong>
+
+                            <div
+                                class="lista-tags lista-tags-compacta"
+                                id="catalogoPlataformasTags"
+                            >
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        class="botao"
+                        id="btnLimparCatalogo"
+                        type="button"
+                    >
+                        Usar preenchimento manual
+                    </button>
+
+                </article>
+
+            </section>
+
+
+            <!-- =================================================
                  INFORMAÇÕES PRINCIPAIS
             ================================================== -->
 
@@ -325,25 +487,46 @@
                 <div class="grade-formulario">
 
 
-                    <!-- PLATAFORMAS -->
+                    <!-- PLATAFORMAS EM QUE O USUÁRIO JOGOU -->
 
-                    <label class="campo campo-largo">
+                    <div class="campo campo-total">
 
-                        Plataformas
+                        <span>
+                            Em quais plataformas você jogou?
+                        </span>
+
+                        <div
+                            class="seletor-plataformas"
+                            id="seletorPlataformas"
+                            hidden
+                        >
+
+                            <p class="texto-suave">
+                                O catálogo mostra onde o jogo existe.
+                                Marque somente onde você realmente jogou.
+                            </p>
+
+                            <div
+                                class="opcoes-plataformas"
+                                id="opcoesPlataformas"
+                            >
+                            </div>
+
+                        </div>
 
                         <input
                             id="plataformasJogo"
                             type="text"
-                            maxlength="120"
+                            maxlength="180"
                             placeholder="Ex.: PC, PlayStation 5"
                         >
 
                         <small>
-                            Separe múltiplas plataformas
-                            por vírgula.
+                            Você pode selecionar as opções do catálogo
+                            acima ou digitar manualmente, separando por vírgula.
                         </small>
 
-                    </label>
+                    </div>
 
 
                     <!-- CATEGORIAS -->

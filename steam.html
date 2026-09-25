@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Importar da Steam | Carteirinha Gamer
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="style.css?v=3.1.0"
+    >
+
+    <link
+        rel="stylesheet"
+        href="steam.css?v=1.1.0"
+    >
+
+</head>
+
+
+<body data-page="steam">
+
+
+    <!-- =====================================================
+         CABEÇALHO
+    ====================================================== -->
+
+    <header class="topo">
+
+        <a
+            class="marca"
+            href="index.html"
+        >
+
+            <span class="marca-icone">
+                🎮
+            </span>
+
+            <span>
+                Carteirinha Gamer
+            </span>
+
+        </a>
+
+
+        <nav class="menu-principal">
+
+            <a href="index.html">
+                Início
+            </a>
+
+            <a href="dashboard.html">
+                Central Gamer
+            </a>
+
+            <a href="biblioteca.html">
+                Biblioteca
+            </a>
+
+            <a href="carteirinha.html">
+                Carteirinha
+            </a>
+
+            <a href="comunidade.html">
+                Comunidade
+            </a>
+
+        </nav>
+
+
+        <a
+            class="botao"
+            href="dashboard.html"
+        >
+            ← Voltar
+        </a>
+
+    </header>
+
+
+    <!-- =====================================================
+         CONTEÚDO
+    ====================================================== -->
+
+    <main class="pagina pagina-steam">
+
+
+        <!-- =================================================
+             APRESENTAÇÃO
+        ================================================== -->
+
+        <section class="steam-hero">
+
+            <div class="steam-hero-conteudo">
+
+                <div>
+
+                    <span class="steam-badge">
+                        🎮 STEAM SYNC
+                    </span>
+
+                    <h1>
+                        Importar da Steam
+                    </h1>
+
+                    <p>
+                        Traga sua biblioteca, tempo jogado e
+                        conquistas para a Carteirinha Gamer.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="steam-hero-logo"
+                    aria-hidden="true"
+                >
+                    ♨
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             CONECTAR PERFIL
+        ================================================== -->
+
+        <section
+            class="painel steam-conectar"
+        >
+
+            <div class="titulo-secao">
+
+                <div>
+
+                    <span class="etiqueta">
+                        Sua conta
+                    </span>
+
+                    <h2>
+                        Encontrar minha biblioteca
+                    </h2>
+
+                    <p class="texto-suave">
+
+                        Informe seu SteamID64,
+                        nome personalizado ou
+                        link público do perfil.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <form
+                class="steam-formulario"
+                id="formSteam"
+            >
+
+                <label class="campo">
+
+                    Perfil da Steam
+
+                    <input
+                        id="perfilSteam"
+                        type="text"
+                        autocomplete="off"
+                        placeholder="Ex.: https://steamcommunity.com/profiles/7656119..."
+                        required
+                    >
+
+                </label>
+
+
+                <label class="steam-checkbox">
+
+                    <input
+                        id="incluirNaoJogados"
+                        type="checkbox"
+                    >
+
+                    <span>
+
+                        <strong>
+                            Mostrar também jogos nunca iniciados
+                        </strong>
+
+                        <small>
+                            Por padrão mostramos somente jogos
+                            que possuem algum tempo registrado.
+                        </small>
+
+                    </span>
+
+                </label>
+
+
+                <button
+                    class="botao botao-destaque"
+                    id="btnCarregarSteam"
+                    type="submit"
+                >
+                    🎮 Carregar minha biblioteca
+                </button>
+
+            </form>
+
+
+            <p
+                class="steam-status texto-suave"
+                id="steamStatus"
+                hidden
+            >
+            </p>
+
+        </section>
+
+
+        <!-- =================================================
+             RESULTADOS
+        ================================================== -->
+
+        <section
+            id="steamResultados"
+            hidden
+        >
+
+
+            <!-- =============================================
+                 RESUMO
+            ============================================== -->
+
+            <section
+                class="painel steam-resumo"
+            >
+
+                <div class="titulo-secao">
+
+                    <div>
+
+                        <span class="etiqueta">
+                            Biblioteca encontrada
+                        </span>
+
+                        <h2>
+                            Seus jogos da Steam
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="estatisticas-grandes">
+
+                    <article>
+
+                        <span>
+                            📚
+                        </span>
+
+                        <strong id="steamTotalBiblioteca">
+                            0
+                        </strong>
+
+                        <p>
+                            Na biblioteca
+                        </p>
+
+                    </article>
+
+
+                    <article>
+
+                        <span>
+                            🎮
+                        </span>
+
+                        <strong id="steamTotalJogados">
+                            0
+                        </strong>
+
+                        <p>
+                            Já jogados
+                        </p>
+
+                    </article>
+
+
+                    <article>
+
+                        <span>
+                            📋
+                        </span>
+
+                        <strong id="steamTotalExibidos">
+                            0
+                        </strong>
+
+                        <p>
+                            Exibidos agora
+                        </p>
+
+                    </article>
+
+                </div>
+
+            </section>
+
+
+            <!-- =============================================
+                 OPÇÕES
+            ============================================== -->
+
+            <section
+                class="painel steam-opcoes"
+            >
+
+                <div class="titulo-secao">
+
+                    <div>
+
+                        <span class="etiqueta">
+                            Importação
+                        </span>
+
+                        <h2>
+                            O que deseja trazer?
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="steam-opcoes-grade">
+
+
+                    <label class="steam-checkbox">
+
+                        <input
+                            id="importarTempoSteam"
+                            type="checkbox"
+                            checked
+                        >
+
+                        <span>
+
+                            <strong>
+                                ⏱️ Tempo jogado
+                            </strong>
+
+                            <small>
+                                Usa o tempo registrado pela Steam.
+                            </small>
+
+                        </span>
+
+                    </label>
+
+
+                    <label class="steam-checkbox">
+
+                        <input
+                            id="importarConquistasSteam"
+                            type="checkbox"
+                            checked
+                        >
+
+                        <span>
+
+                            <strong>
+                                🏆 Conquistas
+                            </strong>
+
+                            <small>
+                                Consulta as conquistas dos
+                                jogos selecionados.
+                            </small>
+
+                        </span>
+
+                    </label>
+
+
+                    <label class="steam-checkbox">
+
+                        <input
+                            id="definirPcSteam"
+                            type="checkbox"
+                            checked
+                        >
+
+                        <span>
+
+                            <strong>
+                                🖥️ Plataforma PC
+                            </strong>
+
+                            <small>
+                                Marca PC como plataforma jogada.
+                            </small>
+
+                        </span>
+
+                    </label>
+
+                </div>
+
+
+                <p class="steam-aviso">
+
+                    🔒 Sua nota, comentário, recomendação,
+                    personagem favorito e outras opiniões pessoais
+                    não serão substituídas pela Steam.
+
+                </p>
+
+            </section>
+
+
+            <!-- =============================================
+                 BIBLIOTECA
+            ============================================== -->
+
+            <section
+                class="painel steam-biblioteca"
+            >
+
+                <div class="titulo-secao">
+
+                    <div>
+
+                        <span class="etiqueta">
+                            Jogos
+                        </span>
+
+                        <h2>
+                            Escolha o que importar
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="steam-barra">
+
+                    <label class="campo-pesquisa">
+
+                        <span>
+                            🔎
+                        </span>
+
+                        <input
+                            id="buscaSteam"
+                            type="search"
+                            placeholder="Pesquisar jogo da Steam..."
+                        >
+
+                    </label>
+
+
+                    <button
+                        class="botao"
+                        id="btnSelecionarTodosSteam"
+                        type="button"
+                    >
+                        ✓ Selecionar todos
+                    </button>
+
+
+                    <button
+                        class="botao"
+                        id="btnLimparSelecaoSteam"
+                        type="button"
+                    >
+                        Limpar seleção
+                    </button>
+
+                </div>
+
+
+                <div class="steam-selecao-info">
+
+                    <strong id="contadorSelecionadosSteam">
+                        0 selecionados
+                    </strong>
+
+                    <span class="texto-suave">
+
+                        Jogos já existentes serão atualizados
+                        quando conseguirmos identificá-los.
+
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="steam-lista"
+                    id="listaSteam"
+                >
+                </div>
+
+            </section>
+
+
+            <!-- =============================================
+                 PROGRESSO
+            ============================================== -->
+
+            <section
+                class="painel steam-progresso"
+                id="progressoSteam"
+                hidden
+            >
+
+                <div>
+
+                    <strong>
+                        Importando...
+                    </strong>
+
+                    <p
+                        class="texto-suave"
+                        id="textoProgressoSteam"
+                    >
+                        Preparando importação.
+                    </p>
+
+                </div>
+
+
+                <div class="steam-progresso-trilho">
+
+                    <div
+                        class="steam-progresso-barra"
+                        id="barraProgressoSteam"
+                    >
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =============================================
+                 BARRA DE AÇÃO FIXA
+            ============================================== -->
+
+            <div class="steam-acoes-finais">
+
+                <div class="steam-acoes-texto">
+
+                    <strong>
+                        Pronto para importar?
+                    </strong>
+
+                    <span>
+                        Escolha os jogos acima e confirme aqui.
+                    </span>
+
+                </div>
+
+
+                <div class="steam-acoes-botoes">
+
+                    <a
+                        class="botao"
+                        href="biblioteca.html"
+                    >
+                        📚 Minha biblioteca
+                    </a>
+
+
+                    <button
+                        class="botao botao-destaque"
+                        id="btnImportarSteam"
+                        type="button"
+                    >
+                        ⬇️ Importar selecionados
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <div
+        class="toast"
+        id="toast"
+        role="status"
+        aria-live="polite"
+    >
+    </div>
+
+
+    <script src="steam.js?v=1.0.0"></script>
+
+</body>
+
+</html>

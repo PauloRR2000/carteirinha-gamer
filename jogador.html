@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil público | Carteirinha Gamer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="jogador-publico">
+  <header class="topo">
+    <a class="marca" href="index.html"><span class="marca-icone">🎮</span><span>Carteirinha Gamer</span></a>
+    <nav class="menu-principal">
+      <a href="index.html">Início</a>
+      <a href="dashboard.html">Central Gamer</a>
+      <a href="biblioteca.html">Biblioteca</a>
+      <a href="carteirinha.html">Carteirinha</a>
+      <a href="comunidade.html">Comunidade</a>
+    </nav>
+    <a class="botao" href="comunidade.html">← Comunidade</a>
+  </header>
+
+  <main class="pagina" id="perfilPublicoConteudo">
+    <section class="painel carregando-perfil-publico" id="perfilPublicoCarregando">
+      <span>🎮</span>
+      <h1>Carregando perfil...</h1>
+      <p class="texto-suave">Buscando a Carteirinha pública deste jogador.</p>
+    </section>
+
+    <section class="perfil-publico-visualizacao" id="perfilPublicoVisualizacao" hidden>
+      <div class="cartao-identidade">
+        <div class="faixa-cartao">
+          <span>CARTEIRINHA GAMER</span>
+          <span>PERFIL PÚBLICO</span>
+        </div>
+
+        <div class="identidade-conteudo">
+          <div class="avatar-carteirinha" id="publicoAvatar">🎮</div>
+          <div>
+            <p class="texto-suave">Jogador</p>
+            <h1 id="publicoNome">Jogador</h1>
+            <p><strong>❤️ Jogo favorito:</strong> <span id="publicoFavorito">Não informado</span></p>
+            <p><strong>🖥️ Plataforma favorita:</strong> <span id="publicoPlataforma">Não informada</span></p>
+            <p><strong>👑 Categoria favorita:</strong> <span id="publicoCategoria">Não informada</span></p>
+          </div>
+        </div>
+
+        <div class="estatisticas-grandes estatisticas-cartao">
+          <article><span>🎮</span><strong id="publicoTotal">0</strong><p>Jogos</p></article>
+          <article><span>🏆</span><strong id="publicoZerados">0</strong><p>Zerados</p></article>
+          <article><span>❌</span><strong id="publicoDropados">0</strong><p>Dropados</p></article>
+          <article><span>⏱️</span><strong id="publicoTempo">0min</strong><p>Tempo</p></article>
+        </div>
+      </div>
+
+      <section class="painel">
+        <div class="titulo-secao">
+          <div>
+            <span class="etiqueta">Habilidades</span>
+            <h2>Estilo de jogador</h2>
+          </div>
+        </div>
+        <div class="habilidades" id="publicoHabilidades"></div>
+      </section>
+
+      <section class="painel biblioteca-publica" id="blocoBibliotecaPublica" hidden>
+        <div class="titulo-secao">
+          <div>
+            <span class="etiqueta">Biblioteca pública</span>
+            <h2>Jogos compartilhados</h2>
+          </div>
+        </div>
+        <div class="grade-biblioteca-publica" id="listaBibliotecaPublica"></div>
+        <p class="atribuicao-rawg">Capas e dados públicos de jogos podem ser fornecidos por <a href="https://rawg.io/" target="_blank" rel="noopener">RAWG</a>.</p>
+      </section>
+
+      <p class="texto-suave perfil-publico-data" id="publicoAtualizado"></p>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>

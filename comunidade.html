@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comunidade | Carteirinha Gamer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="comunidade">
+  <header class="topo">
+    <a class="marca" href="index.html"><span class="marca-icone">🎮</span><span>Carteirinha Gamer</span></a>
+    <nav class="menu-principal">
+      <a href="index.html">Início</a>
+      <a href="dashboard.html">Central Gamer</a>
+      <a href="biblioteca.html">Biblioteca</a>
+      <a href="carteirinha.html">Carteirinha</a>
+      <a class="ativo" href="comunidade.html">Comunidade</a>
+    </nav>
+    <a class="botao" href="carteirinha.html">Meu perfil</a>
+  </header>
+
+  <main class="pagina">
+    <section class="cabecalho-pagina">
+      <div>
+        <span class="etiqueta">Comunidade</span>
+        <h1>Jogadores</h1>
+        <p>Encontre perfis que foram publicados voluntariamente por outros jogadores.</p>
+      </div>
+    </section>
+
+    <section class="painel comunidade-painel">
+      <div class="barra-comunidade">
+        <label class="campo-pesquisa comunidade-pesquisa">
+          <span>🔎</span>
+          <input id="buscaJogador" type="text" maxlength="50" placeholder="Pesquisar por nome ou nickname...">
+        </label>
+        <button class="botao botao-destaque" id="btnBuscarJogador" type="button">Buscar</button>
+      </div>
+
+      <p class="texto-suave comunidade-status" id="comunidadeStatus">Carregando jogadores...</p>
+      <div class="grade-jogadores" id="listaJogadores"></div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>

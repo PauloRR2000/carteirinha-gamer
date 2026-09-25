@@ -41,7 +41,7 @@
           <article><span>🎮</span><strong id="perfilTotal">0</strong><p>Jogos</p></article>
           <article><span>🏆</span><strong id="perfilZerados">0</strong><p>Zerados</p></article>
           <article><span>❌</span><strong id="perfilDropados">0</strong><p>Dropados</p></article>
-          <article><span>⏱️</span><strong id="perfilHoras">0h</strong><p>Horas</p></article>
+          <article><span>⏱️</span><strong id="perfilHoras">0h</strong><p>Tempo</p></article>
         </div>
       </div>
 
@@ -64,9 +64,47 @@
         </div>
         <div id="cardFavorito"></div>
       </section>
+
+      <section class="painel perfil-publico-painel">
+        <div class="titulo-secao">
+          <div>
+            <span class="etiqueta">Online</span>
+            <h2>Perfil público</h2>
+            <p class="texto-suave">Publique uma versão da sua Carteirinha para outras pessoas visualizarem.</p>
+          </div>
+
+          <a class="botao" href="comunidade.html">🌐 Ver comunidade</a>
+        </div>
+
+        <div class="perfil-publico-configuracao">
+          <label class="opcao-publicacao">
+            <input id="mostrarBibliotecaPublica" type="checkbox">
+            <span>
+              <strong>Mostrar minha biblioteca</strong>
+              <small>Se desmarcado, visitantes verão apenas seu perfil e suas estatísticas.</small>
+            </span>
+          </label>
+
+          <p class="texto-suave aviso-privacidade">
+            🔒 Sua biblioteca completa, histórico, backup e comentários pessoais continuam locais. Apenas os dados publicados nesta área são enviados para o perfil público.
+          </p>
+
+          <div class="acoes-perfil-publico">
+            <button class="botao botao-destaque" id="btnPublicarPerfil" type="button">🌐 Publicar meu perfil</button>
+            <button class="botao" id="btnCopiarPerfil" type="button" hidden>🔗 Copiar link</button>
+            <a class="botao" id="btnAbrirPerfilPublico" href="#" target="_blank" rel="noopener" hidden>👁️ Ver perfil público</a>
+            <button class="botao botao-perigo" id="btnDespublicarPerfil" type="button" hidden>Despublicar</button>
+          </div>
+
+          <div class="status-perfil-publico" id="statusPerfilPublico">
+            Seu perfil ainda não foi publicado.
+          </div>
+        </div>
+      </section>
     </section>
   </main>
 
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script src="script.js"></script>
 </body>
 </html>

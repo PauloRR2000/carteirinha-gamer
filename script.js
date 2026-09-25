@@ -1,11 +1,15 @@
 const STORAGE = {
     perfil: "cg_perfil",
     jogos: "cg_jogos",
-    historico: "cg_historico"
+    historico: "cg_historico",
+    publicacaoPerfil: "cg_perfil_publico"
 };
 
 const API_CATALOGO =
     "https://carteirinha-gamer-api.pauloricardo59143.workers.dev";
+
+const SITE_PUBLICO =
+    "https://paulorr2000.github.io/carteirinha-gamer/";
 
 let catalogoJogoSelecionado =
     null;
@@ -86,6 +90,32 @@ function obterHistorico() {
     return lerJSON(
         STORAGE.historico,
         []
+    );
+}
+
+
+function obterPublicacaoPerfil() {
+
+    return {
+        id: "",
+        token: "",
+        mostrarBiblioteca: false,
+        atualizadoEm: "",
+        ...lerJSON(
+            STORAGE.publicacaoPerfil,
+            {}
+        )
+    };
+}
+
+
+function salvarPublicacaoPerfil(
+    publicacao
+) {
+
+    salvarJSON(
+        STORAGE.publicacaoPerfil,
+        publicacao
     );
 }
 
@@ -4275,6 +4305,487 @@ function renderizarDetalheJogo() {
 
 
 /* =========================================================
+   PERFIL PÚBLICO / COMUNIDADE
+========================================================= */
+
+function criarLinkPerfilPublico(id) {
+    return `${SITE_PUBLICO}jogador.html?id=${encodeURIComponent(id)}`;
+}
+
+function urlImagemSegura(valor) {
+    try {
+        const url = new URL(String(valor || ""));
+        if (url.protocol !== "https:" && url.protocol !== "http:") {
+            return "";
+        }
+        return url.href;
+    } catch {
+        return "";
+    }
+}
+
+function montarBibliotecaPublica(jogos) {
+    return jogos.map(jogo => ({
+        id: jogo.id,
+        nome: jogo.nome || "",
+        capa: jogo.catalogo?.capa || "",
+        nota: jogo.nota ?? "",
+        status: jogo.status || "",
+        tempoMinutos: obterTempoTotalMinutos(jogo),
+        plataformas: Array.isArray(jogo.plataformas) ? jogo.plataformas : []
+    }));
+}
+
+function montarPerfilPublico(mostrarBiblioteca) {
+    const perfil = obterPerfil();
+    const jogos = obterJogos();
+    const estatisticas = calcularEstatisticas(jogos);
+    const favorito = jogos.find(jogo => jogo.id === perfil.jogoFavoritoId);
+
+    return {
+        nome: perfil.nome || "Visitante",
+        avatar: perfil.avatar || "🎮",
+        jogoFavorito: favorito?.nome || "",
+        plataformaFavorita: perfil.plataformaFavorita || "",
+        categoriaFavorita: perfil.categoriaFavorita || "",
+        habilidades: Array.isArray(perfil.habilidades) ? perfil.habilidades : [],
+        totalJogos: estatisticas.total,
+        jogosZerados: estatisticas.zerados,
+        jogosDropados: estatisticas.dropados,
+        tempoMinutos: estatisticas.tempoMinutos,
+        mostrarBiblioteca: Boolean(mostrarBiblioteca),
+        biblioteca: mostrarBiblioteca ? montarBibliotecaPublica(jogos) : []
+    };
+}
+
+function atualizarInterfacePerfilPublico() {
+    if (document.body.dataset.page !== "carteirinha") {
+        return;
+    }
+
+    const publicacao = obterPublicacaoPerfil();
+    const checkbox = document.querySelector("#mostrarBibliotecaPublica");
+    const btnPublicar = document.querySelector("#btnPublicarPerfil");
+    const btnCopiar = document.querySelector("#btnCopiarPerfil");
+    const btnAbrir = document.querySelector("#btnAbrirPerfilPublico");
+    const btnDespublicar = document.querySelector("#btnDespublicarPerfil");
+    const status = document.querySelector("#statusPerfilPublico");
+
+    if (!checkbox || !btnPublicar || !btnCopiar || !btnAbrir || !btnDespublicar || !status) {
+        return;
+    }
+
+    checkbox.checked = Boolean(publicacao.mostrarBiblioteca);
+    const publicado = Boolean(publicacao.id && publicacao.token);
+
+    btnPublicar.textContent = publicado
+        ? "🔄 Atualizar perfil público"
+        : "🌐 Publicar meu perfil";
+
+    btnCopiar.hidden = !publicado;
+    btnAbrir.hidden = !publicado;
+    btnDespublicar.hidden = !publicado;
+
+    if (publicado) {
+        btnAbrir.href = criarLinkPerfilPublico(publicacao.id);
+        status.innerHTML = "✅ Perfil publicado. Alterações locais só aparecem online depois de clicar em <strong>Atualizar perfil público</strong>.";
+    } else {
+        btnAbrir.href = "#";
+        status.textContent = "Seu perfil ainda não foi publicado.";
+    }
+}
+
+async function publicarOuAtualizarPerfil() {
+    const perfil = obterPerfil();
+
+    if (!perfil.nome || perfil.nome === "Visitante") {
+        alert("Edite seu perfil e escolha um nome de jogador antes de publicá-lo.");
+        return;
+    }
+
+    const checkbox = document.querySelector("#mostrarBibliotecaPublica");
+    const btnPublicar = document.querySelector("#btnPublicarPerfil");
+    const mostrarBiblioteca = Boolean(checkbox?.checked);
+    const publicacaoAtual = obterPublicacaoPerfil();
+    const payload = montarPerfilPublico(mostrarBiblioteca);
+
+    if (publicacaoAtual.id) {
+        payload.id = publicacaoAtual.id;
+    }
+
+    const headers = {
+        "Content-Type": "application/json"
+    };
+
+    if (publicacaoAtual.token) {
+        headers.Authorization = `Bearer ${publicacaoAtual.token}`;
+    }
+
+    try {
+        if (btnPublicar) {
+            btnPublicar.disabled = true;
+            btnPublicar.textContent = "Publicando...";
+        }
+
+        const resposta = await fetch(`${API_CATALOGO}/perfil`, {
+            method: "POST",
+            headers,
+            body: JSON.stringify(payload)
+        });
+
+        const dados = await resposta.json();
+
+        if (!resposta.ok || !dados.sucesso) {
+            throw new Error(dados.mensagem || "Não foi possível publicar o perfil.");
+        }
+
+        const novaPublicacao = {
+            id: dados.id || publicacaoAtual.id,
+            token: dados.token || publicacaoAtual.token,
+            mostrarBiblioteca,
+            atualizadoEm: new Date().toISOString()
+        };
+
+        if (!novaPublicacao.id || !novaPublicacao.token) {
+            throw new Error("A publicação foi criada, mas a credencial local ficou incompleta.");
+        }
+
+        salvarPublicacaoPerfil(novaPublicacao);
+        atualizarInterfacePerfilPublico();
+        mostrarToast(dados.criado ? "Perfil público criado." : "Perfil público atualizado.");
+    } catch (erro) {
+        console.error("Erro ao publicar perfil:", erro);
+        alert(erro.message || "Não foi possível publicar o perfil.");
+    } finally {
+        if (btnPublicar) {
+            btnPublicar.disabled = false;
+        }
+        atualizarInterfacePerfilPublico();
+    }
+}
+
+async function copiarLinkPerfilPublico() {
+    const publicacao = obterPublicacaoPerfil();
+    if (!publicacao.id) {
+        return;
+    }
+
+    const link = criarLinkPerfilPublico(publicacao.id);
+
+    try {
+        await navigator.clipboard.writeText(link);
+        mostrarToast("Link do perfil copiado.");
+    } catch {
+        window.prompt("Copie o link do seu perfil:", link);
+    }
+}
+
+async function despublicarPerfil() {
+    const publicacao = obterPublicacaoPerfil();
+
+    if (!publicacao.id || !publicacao.token) {
+        return;
+    }
+
+    const confirmar = confirm(
+        "Remover seu perfil público da Comunidade? Seus dados locais e sua biblioteca não serão apagados."
+    );
+
+    if (!confirmar) {
+        return;
+    }
+
+    try {
+        const resposta = await fetch(
+            `${API_CATALOGO}/perfil/${encodeURIComponent(publicacao.id)}`,
+            {
+                method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${publicacao.token}`
+                }
+            }
+        );
+
+        const dados = await resposta.json();
+
+        if (!resposta.ok || !dados.sucesso) {
+            throw new Error(dados.mensagem || "Não foi possível remover o perfil público.");
+        }
+
+        localStorage.removeItem(STORAGE.publicacaoPerfil);
+        atualizarInterfacePerfilPublico();
+        mostrarToast("Perfil removido da Comunidade.");
+    } catch (erro) {
+        console.error("Erro ao despublicar perfil:", erro);
+        alert(erro.message || "Não foi possível remover o perfil público.");
+    }
+}
+
+function configurarPerfilPublico() {
+    if (document.body.dataset.page !== "carteirinha") {
+        return;
+    }
+
+    document.querySelector("#btnPublicarPerfil")?.addEventListener(
+        "click",
+        publicarOuAtualizarPerfil
+    );
+
+    document.querySelector("#btnCopiarPerfil")?.addEventListener(
+        "click",
+        copiarLinkPerfilPublico
+    );
+
+    document.querySelector("#btnDespublicarPerfil")?.addEventListener(
+        "click",
+        despublicarPerfil
+    );
+
+    atualizarInterfacePerfilPublico();
+}
+
+function cardJogadorPublico(jogador) {
+    const favorito = jogador.jogoFavorito || "Não informado";
+    const plataforma = jogador.plataformaFavorita || "Não informada";
+
+    return `
+        <a
+            class="card-jogador-publico"
+            href="jogador.html?id=${encodeURIComponent(jogador.id)}"
+        >
+            <div class="avatar-jogador-publico">
+                ${escaparHTML(jogador.avatar || "🎮")}
+            </div>
+
+            <div class="info-jogador-publico">
+                <h2>${escaparHTML(jogador.nome || "Jogador")}</h2>
+                <p>❤️ ${escaparHTML(favorito)}</p>
+                <p>🖥️ ${escaparHTML(plataforma)}</p>
+
+                <div class="resumo-jogador-publico">
+                    <span>🎮 ${numero(jogador.totalJogos)}</span>
+                    <span>🏆 ${numero(jogador.jogosZerados)}</span>
+                    <span>⏱️ ${formatarTempoMinutos(jogador.tempoMinutos)}</span>
+                </div>
+            </div>
+
+            <span class="seta-jogador-publico">→</span>
+        </a>
+    `;
+}
+
+async function carregarJogadores(busca = "") {
+    const lista = document.querySelector("#listaJogadores");
+    const status = document.querySelector("#comunidadeStatus");
+
+    if (!lista || !status) {
+        return;
+    }
+
+    status.textContent = "Carregando jogadores...";
+    lista.innerHTML = "";
+
+    try {
+        const parametros = busca ? `?q=${encodeURIComponent(busca)}` : "";
+        const resposta = await fetch(`${API_CATALOGO}/jogadores${parametros}`);
+        const dados = await resposta.json();
+
+        if (!resposta.ok || !dados.sucesso) {
+            throw new Error(dados.mensagem || "Não foi possível carregar a Comunidade.");
+        }
+
+        const jogadores = Array.isArray(dados.jogadores) ? dados.jogadores : [];
+
+        if (!jogadores.length) {
+            status.textContent = busca
+                ? "Nenhum jogador encontrado com esse nome."
+                : "Ainda não há perfis públicos na Comunidade.";
+            return;
+        }
+
+        status.textContent = `${jogadores.length} jogador(es) encontrado(s).`;
+        lista.innerHTML = jogadores.map(cardJogadorPublico).join("");
+    } catch (erro) {
+        console.error("Erro na Comunidade:", erro);
+        status.textContent = erro.message || "Não foi possível carregar a Comunidade.";
+    }
+}
+
+function renderizarComunidade() {
+    if (document.body.dataset.page !== "comunidade") {
+        return;
+    }
+
+    const input = document.querySelector("#buscaJogador");
+    const botao = document.querySelector("#btnBuscarJogador");
+    let timer = null;
+
+    const pesquisar = () => {
+        carregarJogadores(input?.value.trim() || "");
+    };
+
+    botao?.addEventListener("click", pesquisar);
+
+    input?.addEventListener("keydown", event => {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            pesquisar();
+        }
+    });
+
+    input?.addEventListener("input", () => {
+        clearTimeout(timer);
+        timer = setTimeout(pesquisar, 450);
+    });
+
+    carregarJogadores();
+}
+
+function renderizarBibliotecaPerfilPublico(biblioteca) {
+    const bloco = document.querySelector("#blocoBibliotecaPublica");
+    const lista = document.querySelector("#listaBibliotecaPublica");
+
+    if (!bloco || !lista) {
+        return;
+    }
+
+    if (!Array.isArray(biblioteca) || !biblioteca.length) {
+        bloco.hidden = true;
+        lista.innerHTML = "";
+        return;
+    }
+
+    bloco.hidden = false;
+
+    lista.innerHTML = biblioteca.map(jogo => {
+        const capa = urlImagemSegura(jogo.capa);
+        const imagem = capa
+            ? `
+                <img
+                    src="${escaparHTML(capa)}"
+                    alt="Capa de ${escaparHTML(jogo.nome || "jogo")}"
+                    loading="lazy"
+                >
+            `
+            : `<div class="capa-publica-vazia">🎮</div>`;
+
+        const nota = jogo.nota !== "" && jogo.nota != null
+            ? `${escaparHTML(jogo.nota)}/10`
+            : "Sem nota";
+
+        const plataformas = Array.isArray(jogo.plataformas)
+            ? jogo.plataformas.join(", ")
+            : "";
+
+        return `
+            <article class="jogo-publico-card">
+                <div class="jogo-publico-capa">${imagem}</div>
+
+                <div class="jogo-publico-info">
+                    <h3>${escaparHTML(jogo.nome || "Jogo")}</h3>
+                    <p>⭐ ${nota}</p>
+                    <p>🏆 ${escaparHTML(jogo.status || "Sem status")}</p>
+                    <p>⏱️ ${formatarTempoMinutos(jogo.tempoMinutos)}</p>
+                    <p class="texto-suave">${escaparHTML(plataformas) || "Plataforma não informada"}</p>
+                </div>
+            </article>
+        `;
+    }).join("");
+}
+
+async function renderizarJogadorPublico() {
+    if (document.body.dataset.page !== "jogador-publico") {
+        return;
+    }
+
+    const carregando = document.querySelector("#perfilPublicoCarregando");
+    const visualizacao = document.querySelector("#perfilPublicoVisualizacao");
+    const params = new URLSearchParams(location.search);
+    const id = params.get("id");
+
+    if (!id) {
+        if (carregando) {
+            carregando.innerHTML = `
+                <span>😵</span>
+                <h1>Perfil não informado</h1>
+                <p class="texto-suave">O link deste perfil está incompleto.</p>
+                <a class="botao botao-destaque" href="comunidade.html">Ir para Comunidade</a>
+            `;
+        }
+        return;
+    }
+
+    try {
+        const resposta = await fetch(`${API_CATALOGO}/perfil/${encodeURIComponent(id)}`);
+        const dados = await resposta.json();
+
+        if (!resposta.ok || !dados.sucesso || !dados.perfil) {
+            throw new Error(dados.mensagem || "Perfil público não encontrado.");
+        }
+
+        const perfil = dados.perfil;
+        const mapa = {
+            publicoAvatar: perfil.avatar || "🎮",
+            publicoNome: perfil.nome || "Jogador",
+            publicoFavorito: perfil.jogoFavorito || "Não informado",
+            publicoPlataforma: perfil.plataformaFavorita || "Não informada",
+            publicoCategoria: perfil.categoriaFavorita || "Não informada",
+            publicoTotal: numero(perfil.totalJogos),
+            publicoZerados: numero(perfil.jogosZerados),
+            publicoDropados: numero(perfil.jogosDropados),
+            publicoTempo: formatarTempoMinutos(perfil.tempoMinutos)
+        };
+
+        Object.entries(mapa).forEach(([elementoId, valor]) => {
+            const elemento = document.getElementById(elementoId);
+            if (elemento) {
+                elemento.textContent = valor;
+            }
+        });
+
+        document.title = `${perfil.nome || "Jogador"} | Carteirinha Gamer`;
+
+        const habilidades = document.querySelector("#publicoHabilidades");
+        if (habilidades) {
+            if (Array.isArray(perfil.habilidades) && perfil.habilidades.length) {
+                habilidades.innerHTML = perfil.habilidades
+                    .map(habilidade => `<span class="habilidade">${escaparHTML(habilidade)}</span>`)
+                    .join("");
+            } else {
+                habilidades.innerHTML = `<p class="texto-suave">Nenhuma habilidade pública informada.</p>`;
+            }
+        }
+
+        if (perfil.mostrarBiblioteca) {
+            renderizarBibliotecaPerfilPublico(perfil.biblioteca);
+        }
+
+        const atualizado = document.querySelector("#publicoAtualizado");
+        if (atualizado) {
+            atualizado.textContent = `Última atualização: ${formatarData(perfil.atualizadoEm)}`;
+        }
+
+        if (carregando) {
+            carregando.hidden = true;
+        }
+        if (visualizacao) {
+            visualizacao.hidden = false;
+        }
+    } catch (erro) {
+        console.error("Erro ao abrir perfil público:", erro);
+        if (carregando) {
+            carregando.innerHTML = `
+                <span>😵</span>
+                <h1>Perfil indisponível</h1>
+                <p class="texto-suave">${escaparHTML(erro.message || "Não foi possível carregar este perfil.")}</p>
+                <a class="botao botao-destaque" href="comunidade.html">Voltar para Comunidade</a>
+            `;
+        }
+    }
+}
+
+
+/* =========================================================
    BACKUP / RESTAURAÇÃO / LIMPEZA
 ========================================================= */
 
@@ -4324,7 +4835,7 @@ function exportarBackup() {
 
 
         versaoBackup:
-            1,
+            2,
 
 
         exportadoEm:
@@ -4343,7 +4854,11 @@ function exportarBackup() {
 
 
             historico:
-                obterHistorico()
+                obterHistorico(),
+
+
+            publicacaoPerfil:
+                obterPublicacaoPerfil()
         }
     };
 
@@ -4583,6 +5098,43 @@ async function importarBackup(
         );
 
 
+        if (
+            Object.prototype
+                .hasOwnProperty
+                .call(
+                    backup.dados,
+                    "publicacaoPerfil"
+                )
+        ) {
+
+            const publicacao =
+                backup.dados
+                    .publicacaoPerfil;
+
+
+            if (
+                publicacao &&
+                typeof publicacao ===
+                    "object" &&
+                !Array.isArray(
+                    publicacao
+                )
+            ) {
+
+                salvarJSON(
+                    STORAGE.publicacaoPerfil,
+                    publicacao
+                );
+
+            } else {
+
+                localStorage.removeItem(
+                    STORAGE.publicacaoPerfil
+                );
+            }
+        }
+
+
         alert(
             "Backup restaurado com sucesso. A Carteirinha Gamer será recarregada com os dados importados."
         );
@@ -4611,6 +5163,24 @@ async function importarBackup(
 ========================================================= */
 
 function apagarTodosOsDados() {
+
+    const publicacao =
+        obterPublicacaoPerfil();
+
+
+    if (
+        publicacao.id &&
+        publicacao.token
+    ) {
+
+        alert(
+            "Você possui um perfil público online. Antes de apagar seus dados locais, abra sua Carteirinha e use Despublicar. Assim você não perde a chave de edição deixando um perfil órfão na Comunidade."
+        );
+
+
+        return;
+    }
+
 
     const primeiraConfirmacao =
         confirm(
@@ -4652,6 +5222,11 @@ function apagarTodosOsDados() {
 
     localStorage.removeItem(
         STORAGE.historico
+    );
+
+
+    localStorage.removeItem(
+        STORAGE.publicacaoPerfil
     );
 
 
@@ -4794,3 +5369,9 @@ renderizarHistorico();
 renderizarDetalheJogo();
 
 configurarBackup();
+
+configurarPerfilPublico();
+
+renderizarComunidade();
+
+renderizarJogadorPublico();

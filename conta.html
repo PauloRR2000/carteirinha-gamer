@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Minha conta | Carteirinha Gamer</title>
+  <link rel="stylesheet" href="style.css?v=4.0.0">
+  <link rel="stylesheet" href="theme-v5.css?v=6.2.0">
+  <link rel="stylesheet" href="auth-v62.css?v=6.2.0">
+</head>
+<body>
+<header class="topo">
+  <a class="marca" href="index.html"><span class="marca-icone">CG</span><span>Carteirinha Gamer</span></a>
+  <nav class="menu-principal"><a href="index.html">Hub Gamer</a><a href="dashboard.html">Central Gamer</a><a href="biblioteca.html">Biblioteca</a><a href="carteirinha.html">Carteirinha</a><a href="comunidade.html">Comunidade</a></nav>
+</header>
+<main class="auth-page-v62">
+  <div class="auth-grid-v62">
+    <section class="painel auth-card-v62">
+      <span class="etiqueta">Minha conta</span>
+      <h1 id="contaNomeV62">Carteirinha Gamer</h1>
+      <p id="contaEmailV62" class="texto-suave"></p>
+      <div class="cloud-state-v62">
+        <div class="cloud-row-v62"><strong>Save local</strong><span id="localStateV62">Verificando...</span></div>
+        <div class="cloud-row-v62"><strong>Save na nuvem</strong><span id="cloudStateV62">Verificando...</span></div>
+      </div>
+      <div class="auth-actions-v62" style="margin-top:20px">
+        <button id="syncUpV62" class="botao botao-destaque">Enviar para nuvem</button>
+        <button id="syncDownV62" class="botao">Baixar da nuvem</button>
+        <button id="logoutV62" class="botao">Sair</button>
+      </div>
+      <div id="contaMsgV62" class="auth-status-v62" style="margin-top:15px"></div>
+    </section>
+    <aside class="painel auth-card-v62">
+      <span class="etiqueta">Sincronização</span>
+      <h2>Como funciona</h2>
+      <p class="texto-suave">Enquanto você estiver conectado, alterações feitas pelo site são enviadas para a nuvem após um pequeno intervalo. Esta página também permite forçar o envio ou recuperar o último save.</p>
+    </aside>
+  </div>
+</main>
+<script src="auth-v62.js?v=6.2.0"></script>
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  if (!CGAuth.getToken()) { location.href = 'login.html'; return; }
+  const u = CGAuth.getUser();
+  document.querySelector('#contaNomeV62').textContent = u?.nome || 'Minha conta';
+  document.querySelector('#contaEmailV62').textContent = u?.email || '';
+  document.querySelector('#localStateV62').textContent = CGAuth.hasLocalData() ? 'Dados encontrados' : 'Sem dados';
+  try {
+    const c = await CGAuth.api('/save');
+    document.querySelector('#cloudStateV62').textContent = c.encontrado ? (c.atualizadoEm ? 'Atualizado em ' + new Date(c.atualizadoEm).toLocaleString('pt-BR') : 'Save encontrado') : 'Nenhum save';
+  } catch (e) {
+    document.querySelector('#cloudStateV62').textContent = 'Erro ao consultar';
+  }
+  document.querySelector('#syncUpV62').onclick = async () => {
+    const m = document.querySelector('#contaMsgV62'); m.textContent = 'Enviando...';
+    try { await CGAuth.uploadNow(); m.textContent = 'Save enviado para a nuvem.'; } catch (e) { m.textContent = e.message; }
+  };
+  document.querySelector('#syncDownV62').onclick = () => CGAuth.downloadNow({ask:true,reload:true});
+  document.querySelector('#logoutV62').onclick = () => CGAuth.logout();
+});
+</script>
+</body>
+</html>

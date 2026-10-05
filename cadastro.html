@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Criar conta | Carteirinha Gamer</title>
+  <link rel="stylesheet" href="style.css?v=4.0.0">
+  <link rel="stylesheet" href="theme-v5.css?v=6.2.0">
+  <link rel="stylesheet" href="auth-v62.css?v=6.2.0">
+</head>
+<body>
+<header class="topo">
+  <a class="marca" href="index.html"><span class="marca-icone">CG</span><span>Carteirinha Gamer</span></a>
+  <nav class="menu-principal"><a href="index.html">Hub Gamer</a><a href="dashboard.html">Central Gamer</a><a href="biblioteca.html">Biblioteca</a><a href="comunidade.html">Comunidade</a></nav>
+</header>
+<main class="auth-page-v62">
+  <div class="auth-grid-v62">
+    <section class="painel auth-card-v62">
+      <span class="etiqueta">Nova conta</span>
+      <h1>Crie sua Carteirinha Gamer</h1>
+      <form id="cadastroFormV62" class="auth-form-v62">
+        <label>Nome de jogador<input id="nomeV62" maxlength="30" required></label>
+        <label>E-mail<input id="emailV62" type="email" autocomplete="email" required></label>
+        <label>Senha<input id="senhaV62" type="password" minlength="8" autocomplete="new-password" required></label>
+        <label>Confirmar senha<input id="confirmarV62" type="password" minlength="8" autocomplete="new-password" required></label>
+        <button class="botao botao-destaque" type="submit">Criar minha conta</button>
+        <div id="cadastroMsgV62" class="auth-status-v62"></div>
+      </form>
+      <p class="texto-suave">Já tem conta? <a href="login.html">Entrar</a></p>
+    </section>
+    <aside class="painel auth-card-v62">
+      <span class="etiqueta">Importação</span>
+      <h2>Você não perde o que já fez</h2>
+      <p class="texto-suave">Se já existir uma Carteirinha neste navegador, depois do cadastro o site pergunta se você quer vincular o save local à nova conta.</p>
+    </aside>
+  </div>
+</main>
+<script src="auth-v62.js?v=6.2.0"></script>
+<script>
+document.querySelector('#cadastroFormV62').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const m = document.querySelector('#cadastroMsgV62');
+  m.classList.remove('auth-danger-v62');
+  const senha = document.querySelector('#senhaV62').value;
+  if (senha !== document.querySelector('#confirmarV62').value) {
+    m.textContent = 'As senhas não são iguais.';
+    m.classList.add('auth-danger-v62');
+    return;
+  }
+  m.textContent = 'Criando conta...';
+  try {
+    await CGAuth.register(document.querySelector('#nomeV62').value.trim(), document.querySelector('#emailV62').value.trim(), senha);
+    m.textContent = 'Conta criada.';
+    await CGAuth.afterLogin();
+  } catch (err) {
+    m.textContent = err.message;
+    m.classList.add('auth-danger-v62');
+  }
+});
+</script>
+</body>
+</html>

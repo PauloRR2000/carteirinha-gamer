@@ -60,6 +60,10 @@ function salvarJSON(
         chave,
         JSON.stringify(valor)
     );
+
+    if (window.CGCloudSync && typeof window.CGCloudSync.schedule === "function") {
+        window.CGCloudSync.schedule();
+    }
 }
 
 
@@ -535,156 +539,7 @@ function configurarToasts() {
 ========================================================= */
 
 function configurarLogin() {
-
-    const botaoLogin =
-        document.querySelector(
-            "#botaoLogin"
-        );
-
-
-    const modal =
-        document.querySelector(
-            "#modalLogin"
-        );
-
-
-    const form =
-        document.querySelector(
-            "#formLogin"
-        );
-
-
-    if (!botaoLogin) {
-
-        return;
-    }
-
-
-    const perfil =
-        obterPerfil();
-
-
-    botaoLogin.textContent =
-
-        perfil.nome !==
-            "Visitante"
-
-            ? `${perfil.avatar} ${perfil.nome}`
-
-            : "Entrar";
-
-
-    if (
-        !modal ||
-        !form
-    ) {
-
-        return;
-    }
-
-
-    botaoLogin
-        .addEventListener(
-            "click",
-            () => {
-
-                const atual =
-                    obterPerfil();
-
-
-                const nome =
-                    document.querySelector(
-                        "#loginNome"
-                    );
-
-
-                const avatar =
-                    document.querySelector(
-                        "#loginAvatar"
-                    );
-
-
-                if (nome) {
-
-                    nome.value =
-
-                        atual.nome ===
-                            "Visitante"
-
-                            ? ""
-
-                            : atual.nome;
-                }
-
-
-                if (avatar) {
-
-                    avatar.value =
-                        atual.avatar ||
-                        "🕹️";
-                }
-
-
-                modal.showModal();
-            }
-        );
-
-
-    form.addEventListener(
-        "submit",
-        event => {
-
-            event.preventDefault();
-
-
-            const atual =
-                obterPerfil();
-
-
-            const nome =
-                document.querySelector(
-                    "#loginNome"
-                );
-
-
-            const avatar =
-                document.querySelector(
-                    "#loginAvatar"
-                );
-
-
-            atual.nome =
-                nome?.value
-                    .trim() ||
-                "Visitante";
-
-
-            atual.avatar =
-                avatar?.value ||
-                "🕹️";
-
-
-            salvarJSON(
-                STORAGE.perfil,
-                atual
-            );
-
-
-            modal.close();
-
-
-            botaoLogin.textContent =
-                `${atual.avatar} ${atual.nome}`;
-
-
-            atualizarHome();
-
-
-            mostrarToast(
-                "Perfil local atualizado."
-            );
-        }
-    );
+    // V6.2: conta real e sincronização são controladas por auth-v62.js.
 }
 
 
@@ -3324,8 +3179,10 @@ function prepararPerfil() {
             : perfil.nome;
 
 
-    avatar.value =
-        perfil.avatar;
+    const avatarAtual = String(perfil.avatar || "").trim();
+    avatar.value = /^avatar-(?:0[1-9]|1[0-9]|20)$/.test(avatarAtual)
+        ? avatarAtual
+        : "avatar-01";
 
 
     plataforma.value =
@@ -3426,6 +3283,11 @@ function prepararPerfil() {
                     );
 
 
+            const avatarSalvo = /^avatar-(?:0[1-9]|1[0-9]|20)$/.test(avatar.value)
+                ? avatar.value
+                : "avatar-01";
+
+
             const atualizado = {
 
                 nome:
@@ -3436,7 +3298,7 @@ function prepararPerfil() {
 
 
                 avatar:
-                    avatar.value,
+                    avatarSalvo,
 
 
                 plataformaFavorita:
@@ -4312,6 +4174,16 @@ function criarLinkPerfilPublico(id) {
     return `${SITE_PUBLICO}jogador.html?id=${encodeURIComponent(id)}`;
 }
 
+function avatarPublicoHtml(valor, classe = "") {
+    const avatar = String(valor || "").trim();
+
+    if (avatar.startsWith("data:image/")) {
+        return `<img class="${classe}" src="${avatar}" alt="Avatar do jogador">`;
+    }
+
+    return escaparHTML(avatar || "🎮");
+}
+
 function urlImagemSegura(valor) {
     try {
         const url = new URL(String(valor || ""));
@@ -4344,7 +4216,9 @@ function montarPerfilPublico(mostrarBiblioteca) {
 
     return {
         nome: perfil.nome || "Visitante",
-        avatar: perfil.avatar || "🎮",
+        avatar: /^avatar-(?:0[1-9]|1[0-9]|20)$/.test(String(perfil.avatar || ""))
+            ? perfil.avatar
+            : "avatar-01",
         jogoFavorito: favorito?.nome || "",
         plataformaFavorita: perfil.plataformaFavorita || "",
         categoriaFavorita: perfil.categoriaFavorita || "",
@@ -4554,7 +4428,7 @@ function cardJogadorPublico(jogador) {
             href="jogador.html?id=${encodeURIComponent(jogador.id)}"
         >
             <div class="avatar-jogador-publico">
-                ${escaparHTML(jogador.avatar || "🎮")}
+                ${avatarPublicoHtml(jogador.avatar || "🎮", "avatar-publico-imagem")}
             </div>
 
             <div class="info-jogador-publico">
@@ -4738,7 +4612,17 @@ async function renderizarJogadorPublico() {
 
         Object.entries(mapa).forEach(([elementoId, valor]) => {
             const elemento = document.getElementById(elementoId);
-            if (elemento) {
+            if (!elemento) return;
+
+            if (
+                elementoId === "publicoAvatar" &&
+                String(valor || "").startsWith("data:image/")
+            ) {
+                elemento.innerHTML = avatarPublicoHtml(
+                    valor,
+                    "avatar-publico-imagem"
+                );
+            } else {
                 elemento.textContent = valor;
             }
         });

@@ -3,8 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#070b18">
   <title>Perfil | Carteirinha Gamer</title>
-  <link rel="stylesheet" href="style.css?v=3.1.0">
+  <link rel="stylesheet" href="style.css?v=4.0.0">
+  <link rel="stylesheet" href="theme-v5.css?v=6.2.0">
+  <link rel="stylesheet" href="auth-v62.css?v=6.2.0">
 </head>
 <body data-page="perfil">
   <header class="topo">
@@ -14,6 +17,7 @@
       <a href="dashboard.html">Central Gamer</a>
       <a href="biblioteca.html">Biblioteca</a>
       <a href="carteirinha.html">Carteirinha</a>
+      <a href="comunidade.html">Comunidade</a>
     </nav>
     <a class="botao" href="carteirinha.html">Voltar</a>
   </header>
@@ -23,7 +27,7 @@
       <div>
         <span class="etiqueta">Personalização</span>
         <h1>Perfil Gamer</h1>
-        <p>Defina quem você é dentro da sua Carteirinha Gamer.</p>
+        <p>Escolha sua identidade visual e deixe sua Carteirinha com a sua cara.</p>
       </div>
     </section>
 
@@ -35,18 +39,6 @@
           <label class="campo campo-largo">
             Nome de jogador
             <input id="perfilNomeInput" type="text" maxlength="30" placeholder="Seu nome ou nickname">
-          </label>
-
-          <label class="campo">
-            Avatar
-            <select id="perfilAvatarInput">
-              <option value="🕹️">🕹️ Arcade</option>
-              <option value="🎮">🎮 Controle</option>
-              <option value="👾">👾 Pixel</option>
-              <option value="🧙">🧙 RPG</option>
-              <option value="🥷">🥷 Ação</option>
-              <option value="🧟">🧟 Terror</option>
-            </select>
           </label>
 
           <label class="campo">
@@ -66,21 +58,140 @@
             </select>
           </label>
         </div>
+
+
+        <div class="avatar-selector-v5">
+          <div class="avatar-selector-head">
+            <div>
+              <span class="etiqueta">Avatar</span>
+              <h3>Escolha seu personagem</h3>
+              <p>São 20 avatares fixos, com estilos, aparências e visuais diferentes. Escolha o que mais combina com seu perfil.</p>
+            </div>
+            <div class="avatar-topo" id="avatarPreviewV5">avatar-01</div>
+          </div>
+
+          <select id="perfilAvatarInput" class="avatar-select-fallback" aria-label="Avatar selecionado">
+            <option value="avatar-01">Pulse</option>
+            <option value="avatar-02">Nova</option>
+            <option value="avatar-03">Ember</option>
+            <option value="avatar-04">Pixel</option>
+            <option value="avatar-05">Orbit</option>
+            <option value="avatar-06">Vibe</option>
+            <option value="avatar-07">Blaze</option>
+            <option value="avatar-08">Luna</option>
+            <option value="avatar-09">Echo</option>
+            <option value="avatar-10">Astra</option>
+            <option value="avatar-11">Rift</option>
+            <option value="avatar-12">Mika</option>
+            <option value="avatar-13">Volt</option>
+            <option value="avatar-14">Nia</option>
+            <option value="avatar-15">Cosmo</option>
+            <option value="avatar-16">Aya</option>
+            <option value="avatar-17">Flux</option>
+            <option value="avatar-18">Zuri</option>
+            <option value="avatar-19">Byte</option>
+            <option value="avatar-20">Kira</option>
+          </select>
+
+          <div class="avatar-grid-v5" id="avatarGridV5">
+            <button type="button" class="avatar-choice-v5" data-avatar-choice="avatar-01" aria-pressed="false">
+              <img src="assets/avatars/avatar-01.png" alt="Avatar Pulse">
+              <span>Pulse</span>
+            </button>
+            <button type="button" class="avatar-choice-v5" data-avatar-choice="avatar-02" aria-pressed="false">
+              <img src="assets/avatars/avatar-02.png" alt="Avatar Nova">
+              <span>Nova</span>
+            </button>
+            <button type="button" class="avatar-choice-v5" data-avatar-choice="avatar-03" aria-pressed="false">
+              <img src="assets/avatars/avatar-03.png" alt="Avatar Ember">
+              <span>Ember</span>
+            </button>
+            <button type="button" class="avatar-choice-v5" data-avatar-choice="avatar-04" aria-pressed="false">
+              <img src="assets/avatars/avatar-04.png" alt="Avatar Pixel">
+              <span>Pixel</span>
+            </button>
+            <button type="button" class="avatar-choice-v5" data-avatar-choice="avatar-05" aria-pressed="false">
+              <img src="assets/avatars/avatar-05.png" alt="Avatar Orbit">
+              <span>Orbit</span>
+            </button>
+            <button type="button" class="avatar-choice-v5" data-avatar-choice="avatar-06" aria-pressed="false">
+              <img src="assets/avatars/avatar-06.png" alt="Avatar Vibe">
+              <span>Vibe</span>
+            </button>
+            <button type="button" class="avatar-choice-v5" data-avatar-choice="avatar-07" aria-pressed="false">
+              <img src="assets/avatars/avatar-07.png" alt="Avatar Blaze">
+              <span>Blaze</span>
+            </button>
+            <button type="button" class="avatar-choice-v5" data-avatar-choice="avatar-08" aria-pressed="false">
+              <img src="assets/avatars/avatar-08.png" alt="Avatar Luna">
+              <span>Luna</span>
+            </button>
+            <button type="button" class="avatar-choice-v5" data-avatar-choice="avatar-09" aria-pressed="false">
+              <img src="assets/avatars/avatar-09.png" alt="Avatar Echo">
+              <span>Echo</span>
+            </button>
+            <button type="button" class="avatar-choice-v5" data-avatar-choice="avatar-10" aria-pressed="false">
+              <img src="assets/avatars/avatar-10.png" alt="Avatar Astra">
+              <span>Astra</span>
+            </button>
+            <button type="button" class="avatar-choice-v5" data-avatar-choice="avatar-11" aria-pressed="false">
+              <img src="assets/avatars/avatar-11.png" alt="Avatar Rift">
+              <span>Rift</span>
+            </button>
+            <button type="button" class="avatar-choice-v5" data-avatar-choice="avatar-12" aria-pressed="false">
+              <img src="assets/avatars/avatar-12.png" alt="Avatar Mika">
+              <span>Mika</span>
+            </button>
+            <button type="button" class="avatar-choice-v5" data-avatar-choice="avatar-13" aria-pressed="false">
+              <img src="assets/avatars/avatar-13.png" alt="Avatar Volt">
+              <span>Volt</span>
+            </button>
+            <button type="button" class="avatar-choice-v5" data-avatar-choice="avatar-14" aria-pressed="false">
+              <img src="assets/avatars/avatar-14.png" alt="Avatar Nia">
+              <span>Nia</span>
+            </button>
+            <button type="button" class="avatar-choice-v5" data-avatar-choice="avatar-15" aria-pressed="false">
+              <img src="assets/avatars/avatar-15.png" alt="Avatar Cosmo">
+              <span>Cosmo</span>
+            </button>
+            <button type="button" class="avatar-choice-v5" data-avatar-choice="avatar-16" aria-pressed="false">
+              <img src="assets/avatars/avatar-16.png" alt="Avatar Aya">
+              <span>Aya</span>
+            </button>
+            <button type="button" class="avatar-choice-v5" data-avatar-choice="avatar-17" aria-pressed="false">
+              <img src="assets/avatars/avatar-17.png" alt="Avatar Flux">
+              <span>Flux</span>
+            </button>
+            <button type="button" class="avatar-choice-v5" data-avatar-choice="avatar-18" aria-pressed="false">
+              <img src="assets/avatars/avatar-18.png" alt="Avatar Zuri">
+              <span>Zuri</span>
+            </button>
+            <button type="button" class="avatar-choice-v5" data-avatar-choice="avatar-19" aria-pressed="false">
+              <img src="assets/avatars/avatar-19.png" alt="Avatar Byte">
+              <span>Byte</span>
+            </button>
+            <button type="button" class="avatar-choice-v5" data-avatar-choice="avatar-20" aria-pressed="false">
+              <img src="assets/avatars/avatar-20.png" alt="Avatar Kira">
+              <span>Kira</span>
+            </button>
+          </div>
+        </div>
+
       </fieldset>
 
       <fieldset>
-        <legend>Habilidades</legend>
-        <p class="texto-suave">Marque quantas quiser.</p>
+        <legend>Principais habilidades</legend>
+        <p class="texto-suave">Marque quantas quiser. Elas aparecem na sua Carteirinha e no perfil público.</p>
 
         <div class="grade-checkbox" id="habilidadesCheckbox">
-          <label><input type="checkbox" value="FPS"> 🎯 FPS</label>
-          <label><input type="checkbox" value="RPG"> ⚔️ RPG</label>
-          <label><input type="checkbox" value="Luta JxJ"> 🥊 Luta JxJ</label>
-          <label><input type="checkbox" value="Puzzle"> 🧩 Puzzle</label>
-          <label><input type="checkbox" value="Descobridor de Indies"> 💎 Descobridor de Indies</label>
-          <label><input type="checkbox" value="Terror"> 👻 Terror</label>
-          <label><input type="checkbox" value="Estratégia"> 🧠 Estratégia</label>
-          <label><input type="checkbox" value="Cooperativo"> 🤝 Cooperativo</label>
+          <label><input type="checkbox" value="FPS"> FPS</label>
+          <label><input type="checkbox" value="RPG"> RPG</label>
+          <label><input type="checkbox" value="Luta JxJ"> Luta JxJ</label>
+          <label><input type="checkbox" value="Puzzle"> Puzzle</label>
+          <label><input type="checkbox" value="Descobridor de Indies"> Descobridor de Indies</label>
+          <label><input type="checkbox" value="Terror"> Terror</label>
+          <label><input type="checkbox" value="Estratégia"> Estratégia</label>
+          <label><input type="checkbox" value="Cooperativo"> Cooperativo</label>
         </div>
       </fieldset>
 
@@ -92,6 +203,8 @@
   </main>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script src="script.js?v=3.1.0"></script>
+  <script src="script.js?v=6.2.0"></script>
+  <script src="theme-v5.js?v=6.2.0"></script>
+  <script src="auth-v62.js?v=6.2.0"></script>
 </body>
 </html>

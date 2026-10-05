@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Entrar | Carteirinha Gamer</title>
+  <link rel="stylesheet" href="style.css?v=4.0.0">
+  <link rel="stylesheet" href="theme-v5.css?v=6.2.0">
+  <link rel="stylesheet" href="auth-v62.css?v=6.2.0">
+</head>
+<body>
+<header class="topo">
+  <a class="marca" href="index.html"><span class="marca-icone">CG</span><span>Carteirinha Gamer</span></a>
+  <nav class="menu-principal"><a href="index.html">Hub Gamer</a><a href="dashboard.html">Central Gamer</a><a href="biblioteca.html">Biblioteca</a><a href="comunidade.html">Comunidade</a></nav>
+</header>
+<main class="auth-page-v62">
+  <div class="auth-grid-v62">
+    <section class="painel auth-card-v62">
+      <span class="etiqueta">Conta</span>
+      <h1>Entrar na Carteirinha Gamer</h1>
+      <p class="texto-suave">Entre para recuperar sua biblioteca, perfil e histórico em outros dispositivos.</p>
+      <form id="loginFormV62" class="auth-form-v62">
+        <label>E-mail<input id="emailV62" type="email" autocomplete="email" required></label>
+        <label>Senha<input id="senhaV62" type="password" autocomplete="current-password" minlength="8" required></label>
+        <button class="botao botao-destaque" type="submit">Entrar</button>
+        <div id="loginMsgV62" class="auth-status-v62"></div>
+      </form>
+      <p class="texto-suave">Ainda não tem conta? <a href="cadastro.html">Criar conta</a></p>
+    </section>
+    <aside class="painel auth-card-v62">
+      <span class="etiqueta">Nuvem</span>
+      <h2>Seu save acompanha você</h2>
+      <p class="texto-suave">Depois do login, a Carteirinha pode carregar ou enviar os dados salvos neste navegador.</p>
+      <div class="auth-notice-v62">Perfil, biblioteca, histórico e preferências principais ficam vinculados à sua conta.</div>
+    </aside>
+  </div>
+</main>
+<script src="auth-v62.js?v=6.2.0"></script>
+<script>
+document.querySelector('#loginFormV62').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const m = document.querySelector('#loginMsgV62');
+  m.classList.remove('auth-danger-v62');
+  m.textContent = 'Entrando...';
+  try {
+    await CGAuth.login(document.querySelector('#emailV62').value.trim(), document.querySelector('#senhaV62').value);
+    m.textContent = 'Login realizado.';
+    await CGAuth.afterLogin();
+  } catch (err) {
+    m.textContent = err.message;
+    m.classList.add('auth-danger-v62');
+  }
+});
+</script>
+</body>
+</html>

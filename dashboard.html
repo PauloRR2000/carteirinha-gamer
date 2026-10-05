@@ -1,465 +1,236 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>
-        Central Gamer | Carteirinha Gamer
-    </title>
-
-    <link
-        rel="stylesheet"
-        href="style.css?v=3.1.2"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#070b18">
+    <title>Central Gamer | Carteirinha Gamer</title>
+    <link rel="stylesheet" href="style.css?v=4.0.0">
+    <link rel="stylesheet" href="theme-v5.css?v=6.2.0">
+  <link rel="stylesheet" href="auth-v62.css?v=6.2.0">
 </head>
+<body data-page="dashboard" class="dashboard-v4">
 
-
-<body data-page="dashboard">
-
-    <!-- =====================================================
-         CABEÇALHO
-    ====================================================== -->
-
-    <header class="topo">
-
-        <a
-            class="marca"
-            href="index.html"
-        >
-
-            <span class="marca-icone">
-                🎮
-            </span>
-
-            <span>
-                Carteirinha Gamer
-            </span>
-
+    <header class="topo topo-v4">
+        <a class="marca" href="index.html" aria-label="Carteirinha Gamer - Início">
+            <span class="marca-icone">🎮</span>
+            <span>Carteirinha Gamer</span>
         </a>
 
-
-        <nav class="menu-principal">
-
-            <a href="index.html">
-                Início
-            </a>
-
-            <a
-                class="ativo"
-                href="dashboard.html"
-            >
-                Central Gamer
-            </a>
-
-            <a href="biblioteca.html">
-                Biblioteca
-            </a>
-
-            <a href="carteirinha.html">
-                Carteirinha
-            </a>
-
+        <nav class="menu-principal" aria-label="Navegação principal">
+            <a href="index.html">Início</a>
+            <a href="dashboard.html" class="ativo">Central Gamer</a>
+            <a href="biblioteca.html">Biblioteca</a>
+            <a href="carteirinha.html">Carteirinha</a>
+            <a href="comunidade.html">Comunidade</a>
         </nav>
 
-
-        <button
-            class="botao botao-destaque"
-            id="botaoLogin"
-            type="button"
-        >
-            Entrar
-        </button>
-
+        <button class="botao botao-destaque" id="botaoLogin" type="button">Entrar</button>
     </header>
 
-
-    <!-- =====================================================
-         CONTEÚDO PRINCIPAL
-    ====================================================== -->
-
-    <main class="pagina">
-
-        <section class="cabecalho-pagina">
-
-            <div>
-
-                <span class="etiqueta">
-                    Painel de controle
-                </span>
-
-                <h1>
-                    Central Gamer
-                </h1>
-
-                <p>
-                    Escolha o que você quer fazer agora.
-                </p>
-
+    <div class="dashboard-shell">
+        <aside class="dashboard-sidebar" aria-label="Atalhos">
+            <div class="sidebar-menu">
+                <a class="sidebar-item ativo" href="dashboard.html">
+                    <img src="assets/icons/central.svg" alt=""><strong>Central Gamer</strong>
+                </a>
+                <a class="sidebar-item" href="biblioteca.html">
+                    <img src="assets/icons/library.svg" alt=""><strong>Minha Biblioteca</strong>
+                </a>
+                <a class="sidebar-item" href="carteirinha.html">
+                    <img src="assets/icons/card.svg" alt=""><strong>Minha Carteirinha</strong>
+                </a>
+                <a class="sidebar-item" href="comunidade.html">
+                    <img src="assets/icons/community.svg" alt=""><strong>Comunidade</strong>
+                </a>
+                <a class="sidebar-item" href="configuracoes.html">
+                    <img src="assets/icons/settings.svg" alt=""><strong>Configurações</strong>
+                </a>
             </div>
 
-
-            <div
-                class="avatar-topo"
-                id="dashboardAvatar"
-            >
-                🕹️
+            <div class="sidebar-poster" aria-hidden="true">
+                <span class="sidebar-controle">controle</span>
+                <strong>JOGOS</strong>
+                <strong>PESSOAS</strong>
+                <strong>HISTÓRIAS</strong>
+                <span class="sidebar-risco">////</span>
             </div>
 
-        </section>
-
-
-        <!-- =================================================
-             MENU PRINCIPAL
-        ================================================== -->
-
-        <section class="grade-menu">
-
-
-            <!-- BIBLIOTECA -->
-
-            <a
-                class="card-acao"
-                href="biblioteca.html"
-            >
-
-                <span class="card-acao-icone">
-                    📚
-                </span>
-
-                <h2>
-                    Minha Biblioteca
-                </h2>
-
-                <p>
-                    Veja todos os jogos cadastrados,
-                    filtre, pesquise e edite.
-                </p>
-
-            </a>
-
-
-            <!-- ADICIONAR JOGO -->
-
-            <a
-                class="card-acao"
-                href="jogo.html"
-            >
-
-                <span class="card-acao-icone">
-                    ➕
-                </span>
-
-                <h2>
-                    Adicionar jogo
-                </h2>
-
-                <p>
-                    Cadastre um novo jogo com nota,
-                    tempo jogado, conquistas e experiência.
-                </p>
-
-            </a>
-
-
-            <!-- IMPORTAR DA STEAM -->
-
-            <a
-                class="card-acao card-acao-steam"
-                href="steam.html"
-            >
-
-                <span
-                    class="card-acao-icone steam-card-icone"
-                    aria-hidden="true"
-                    style="
-                        width: 40px;
-                        height: 40px;
-                        min-width: 40px;
-                        min-height: 40px;
-                        max-width: 40px;
-                        max-height: 40px;
-                        padding: 5px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        overflow: hidden;
-                    "
-                >
-
-                    <img
-                        src="https://cdn.simpleicons.org/steam/66C0F4"
-                        alt=""
-                        width="30"
-                        height="30"
-                        style="
-                            width: 40px;
-                            height: 40px;
-                            min-width: 40px;
-                            min-height: 40px;
-                            max-width: 40px;
-                            max-height: 40px;
-                            display: block;
-                            object-fit: contain;
-                        "
-                    >
-
-                </span>
-
-                <h2>
-                    Importar da Steam
-                </h2>
-
-                <p>
-                    Importe seus jogos, tempo jogado
-                    e conquistas automaticamente.
-                </p>
-
-            </a>
-
-
-            <!-- CARTEIRINHA -->
-
-            <a
-                class="card-acao"
-                href="carteirinha.html"
-            >
-
-                <span class="card-acao-icone">
-                    🪪
-                </span>
-
-                <h2>
-                    Minha Carteirinha
-                </h2>
-
-                <p>
-                    Veja seu perfil gamer, estatísticas,
-                    favoritos e habilidades.
-                </p>
-
-            </a>
-
-
-            <!-- HISTÓRICO -->
-
-            <a
-                class="card-acao"
-                href="historico.html"
-            >
-
-                <span class="card-acao-icone">
-                    🕘
-                </span>
-
-                <h2>
-                    Histórico
-                </h2>
-
-                <p>
-                    Acompanhe alterações feitas nos seus
-                    jogos ao longo do tempo.
-                </p>
-
-            </a>
-
-
-            <!-- PERFIL -->
-
-            <a
-                class="card-acao"
-                href="perfil.html"
-            >
-
-                <span class="card-acao-icone">
-                    👤
-                </span>
-
-                <h2>
-                    Perfil
-                </h2>
-
-                <p>
-                    Edite nome, avatar, plataforma favorita,
-                    categoria e habilidades.
-                </p>
-
-            </a>
-
-
-            <!-- COMUNIDADE -->
-
-            <a
-                class="card-acao"
-                href="comunidade.html"
-            >
-
-                <span class="card-acao-icone">
-                    🌐
-                </span>
-
-                <h2>
-                    Comunidade
-                </h2>
-
-                <p>
-                    Encontre perfis públicos e veja
-                    as Carteirinhas de outros jogadores.
-                </p>
-
-            </a>
-
-
-            <!-- CONFIGURAÇÕES -->
-
-            <a
-                class="card-acao"
-                href="configuracoes.html"
-            >
-
-                <span class="card-acao-icone">
-                    ⚙️
-                </span>
-
-                <h2>
-                    Configurações
-                </h2>
-
-                <p>
-                    Faça backup, importe seus dados
-                    ou limpe sua Carteirinha Gamer.
-                </p>
-
-            </a>
-
-        </section>
-
-
-        <!-- =================================================
-             RESUMO
-        ================================================== -->
-
-        <section
-            class="painel resumo-dashboard"
-        >
-
-            <div class="titulo-secao">
-
-                <div>
-
-                    <span class="etiqueta">
-                        Resumo
-                    </span>
-
-                    <h2>
-                        Seus números
-                    </h2>
-
+            <blockquote class="sidebar-frase">
+                “Organize sua jornada e mostre sua evolução.”
+            </blockquote>
+        </aside>
+
+        <main class="dashboard-main">
+            <section class="dashboard-hero">
+                <div class="dashboard-hero-copy">
+                    <span class="etiqueta">Central Gamer</span>
+                    <h1>Sua jornada gamer <em>em um só lugar</em></h1>
+                    <p>Organize sua jornada e mostre sua evolução.</p>
+                    <div class="hero-detalhes" aria-hidden="true">
+                        <span>✦</span><span>JOGUE</span><span>◆</span><span>ORGANIZE</span><span>✦</span><span>CONQUISTE</span>
+                    </div>
                 </div>
 
+                <div class="dashboard-hero-arte" aria-hidden="true">
+                    <img src="assets/hero-gamer-v5.png" alt="">
+                </div>
+            </section>
+
+            <div class="dashboard-content-grid">
+                <section class="dashboard-centro">
+                    <div class="grade-menu grade-menu-v4">
+                        <a class="card-acao card-biblioteca" href="biblioteca.html">
+                            <span class="card-acao-icone"><img src="assets/icons/library.svg" alt=""></span>
+                            <div><h2>Minha Biblioteca</h2><p>Veja seus jogos cadastrados, filtre, pesquise e edite.</p></div>
+                            <span class="card-seta">→</span>
+                        </a>
+
+                        <a class="card-acao card-adicionar" href="jogo.html">
+                            <span class="card-acao-icone"><img src="assets/icons/add.svg" alt=""></span>
+                            <div><h2>Adicionar jogo</h2><p>Cadastre nota, tempo, conquistas e sua experiência.</p></div>
+                            <span class="card-seta">→</span>
+                        </a>
+
+                        <a class="card-acao card-steam" href="steam.html">
+                            <span class="card-acao-icone"><img src="assets/icons/steam.svg" alt=""></span>
+                            <div><h2>Importar da Steam</h2><p>Traga jogos, tempo jogado e conquistas automaticamente.</p></div>
+                            <span class="card-seta">→</span>
+                        </a>
+
+                        <a class="card-acao card-carteirinha" href="carteirinha.html">
+                            <span class="card-acao-icone"><img src="assets/icons/card.svg" alt=""></span>
+                            <div><h2>Minha Carteirinha</h2><p>Veja seu perfil gamer, estatísticas, favoritos e habilidades.</p></div>
+                            <span class="card-seta">→</span>
+                        </a>
+
+                        <a class="card-acao card-historico" href="historico.html">
+                            <span class="card-acao-icone"><img src="assets/icons/history.svg" alt=""></span>
+                            <div><h2>Histórico</h2><p>Acompanhe alterações feitas nos seus jogos ao longo do tempo.</p></div>
+                            <span class="card-seta">→</span>
+                        </a>
+
+                        <a class="card-acao card-perfil" href="perfil.html">
+                            <span class="card-acao-icone"><img src="assets/icons/profile.svg" alt=""></span>
+                            <div><h2>Perfil</h2><p>Edite nome, personagem, plataforma, categoria e habilidades.</p></div>
+                            <span class="card-seta">→</span>
+                        </a>
+
+                        <a class="card-acao card-comunidade" href="comunidade.html">
+                            <span class="card-acao-icone"><img src="assets/icons/community.svg" alt=""></span>
+                            <div><h2>Comunidade</h2><p>Encontre perfis públicos e veja outras Carteirinhas.</p></div>
+                            <span class="card-seta">→</span>
+                        </a>
+
+                        <a class="card-acao card-configuracoes" href="configuracoes.html">
+                            <span class="card-acao-icone"><img src="assets/icons/settings.svg" alt=""></span>
+                            <div><h2>Configurações</h2><p>Faça backup, importe seus dados ou gerencie a Carteirinha.</p></div>
+                            <span class="card-seta">→</span>
+                        </a>
+                    </div>
+
+                    <section class="painel resumo-dashboard resumo-dashboard-v4">
+                        <div class="titulo-secao">
+                            <div>
+                                <span class="etiqueta">Resumo</span>
+                                <h2>Sua jornada em números</h2>
+                            </div>
+                            <a class="link-discreto" href="biblioteca.html">Ver biblioteca →</a>
+                        </div>
+
+                        <div class="estatisticas-grandes">
+                            <article class="stat-roxo"><span>🎮</span><strong id="dashTotal">0</strong><p>Jogos cadastrados</p></article>
+                            <article class="stat-verde"><span>🏆</span><strong id="dashZerados">0</strong><p>Jogos zerados</p></article>
+                            <article class="stat-rosa"><span>✕</span><strong id="dashDropados">0</strong><p>Jogos dropados</p></article>
+                            <article class="stat-azul"><span>◷</span><strong id="dashHoras">0min</strong><p>Tempo registrado</p></article>
+                        </div>
+                    </section>
+                </section>
+
+                <aside class="dashboard-direita">
+                    <section class="painel dashboard-card-perfil">
+                        <div class="dashboard-card-topo">
+                            <div>
+                                <span class="etiqueta">Sua identidade</span>
+                                <h2>Minha Carteirinha</h2>
+                            </div>
+                            <a class="link-discreto" href="perfil.html">Personalizar →</a>
+                        </div>
+
+                        <div class="mini-carteirinha-neon">
+                            <div class="mini-card-faixa">
+                                <strong><img src="assets/icons/gamepad.svg" alt=""> CARTEIRINHA GAMER</strong>
+                                <span>PERFIL</span>
+                            </div>
+
+                            <div class="mini-card-identidade">
+                                <div class="mini-card-avatar" id="dashboardAvatar">avatar-01</div>
+
+                                <div class="mini-card-info">
+                                    <small>NOME DO JOGADOR</small>
+                                    <strong id="dashPerfilNome">Seu perfil</strong>
+                                    <span class="mini-player-badge"><img src="assets/icons/gamepad.svg" alt=""> Jogador</span>
+                                </div>
+                            </div>
+
+                            <div class="mini-card-detalhes">
+                                <div class="mini-detalhe mini-detalhe-favorito">
+                                    <span class="mini-id-label">JOGO FAVORITO</span>
+                                    <div class="mini-favorito-linha">
+                                        <img class="mini-favorito-capa" id="dashMiniFavoritoCapa" alt="" hidden>
+                                        <strong id="dashPerfilFavorito">Nenhum favorito</strong>
+                                    </div>
+                                </div>
+
+                                <div class="mini-detalhe">
+                                    <span class="mini-id-label">PLATAFORMA</span>
+                                    <strong id="dashPerfilPlataforma">Não definida</strong>
+                                </div>
+
+                                <div class="mini-detalhe">
+                                    <span class="mini-id-label">CATEGORIA</span>
+                                    <strong id="dashPerfilCategoria">Não definida</strong>
+                                </div>
+                            </div>
+
+                            <div class="mini-card-stats">
+                                <div class="mini-stat"><img src="assets/icons/gamepad.svg" alt=""><strong id="miniDashJogos">0</strong><small>Jogos</small></div>
+                                <div class="mini-stat"><img src="assets/icons/trophy.svg" alt=""><strong id="miniDashZerados">0</strong><small>Zerados</small></div>
+                                <div class="mini-stat"><img src="assets/icons/drop.svg" alt=""><strong id="miniDashDropados">0</strong><small>Dropados</small></div>
+                                <div class="mini-stat"><img src="assets/icons/clock.svg" alt=""><strong id="miniDashTempo">0min</strong><small>Tempo</small></div>
+                            </div>
+
+                            <div class="mini-card-tags" id="dashPerfilHabilidades">
+                                <span>Gamer</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="painel dashboard-comunidade-preview">
+                        <div>
+                            <span class="etiqueta">Comunidade</span>
+                            <h2>Compartilhe sua jornada</h2>
+                            <p>Publique sua Carteirinha e descubra outros jogadores.</p>
+                        </div>
+                        <div class="comunidade-orbes" aria-hidden="true">
+                            <span><img src="assets/icons/gamepad.svg" alt=""></span>
+                            <span><img src="assets/icons/community.svg" alt=""></span>
+                            <span><img src="assets/icons/trophy.svg" alt=""></span>
+                            <span><img src="assets/icons/profile.svg" alt=""></span>
+                        </div>
+                        <a class="botao botao-destaque botao-largo" href="comunidade.html">Explorar comunidade</a>
+                    </section>
+                </aside>
             </div>
-
-
-            <div class="estatisticas-grandes">
-
-                <article>
-
-                    <span>
-                        🎮
-                    </span>
-
-                    <strong id="dashTotal">
-                        0
-                    </strong>
-
-                    <p>
-                        Jogos cadastrados
-                    </p>
-
-                </article>
-
-
-                <article>
-
-                    <span>
-                        🏆
-                    </span>
-
-                    <strong id="dashZerados">
-                        0
-                    </strong>
-
-                    <p>
-                        Jogos zerados
-                    </p>
-
-                </article>
-
-
-                <article>
-
-                    <span>
-                        ❌
-                    </span>
-
-                    <strong id="dashDropados">
-                        0
-                    </strong>
-
-                    <p>
-                        Jogos dropados
-                    </p>
-
-                </article>
-
-
-                <article>
-
-                    <span>
-                        ⏱️
-                    </span>
-
-                    <strong id="dashHoras">
-                        0min
-                    </strong>
-
-                    <p>
-                        Tempo registrado
-                    </p>
-
-                </article>
-
-            </div>
-
-        </section>
-
-    </main>
-
-
-    <!-- =====================================================
-         TOAST
-    ====================================================== -->
-
-    <div
-        class="toast"
-        id="toast"
-        role="status"
-        aria-live="polite"
-    >
+        </main>
     </div>
 
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-    <!-- =====================================================
-         JAVASCRIPT
-    ====================================================== -->
-
-    <script src="script.js?v=3.1.0"></script>
-
+    <script src="script.js?v=6.2.0"></script>
+    <script src="dashboard-theme.js?v=2.0.0"></script>
+    <script src="avatar-engine-v57.js?v=5.7.0"></script>
+  <script src="theme-v5.js?v=6.2.0"></script>
+  <script src="auth-v62.js?v=6.2.0"></script>
 </body>
-
 </html>

@@ -3,8 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#070b18">
   <title>Minha Carteirinha | Carteirinha Gamer</title>
-  <link rel="stylesheet" href="style.css?v=3.1.0">
+  <link rel="stylesheet" href="style.css?v=4.0.0">
+  <link rel="stylesheet" href="theme-v5.css?v=6.2.0">
+  <link rel="stylesheet" href="auth-v62.css?v=6.2.0">
 </head>
 <body data-page="carteirinha">
   <header class="topo">
@@ -14,8 +17,9 @@
       <a href="dashboard.html">Central Gamer</a>
       <a href="biblioteca.html">Biblioteca</a>
       <a class="ativo" href="carteirinha.html">Carteirinha</a>
+      <a href="comunidade.html">Comunidade</a>
     </nav>
-    <a class="botao" href="perfil.html">Editar perfil</a>
+    <a class="botao" href="perfil.html">Personalizar</a>
   </header>
 
   <main class="pagina">
@@ -23,17 +27,19 @@
       <div class="cartao-identidade">
         <div class="faixa-cartao">
           <span>CARTEIRINHA GAMER</span>
-          <span>#PLAYER</span>
+          <span>PERFIL DE JOGADOR</span>
         </div>
 
         <div class="identidade-conteudo">
-          <div class="avatar-carteirinha" id="perfilAvatar">🕹️</div>
+          <div class="avatar-carteirinha" id="perfilAvatar">avatar-01</div>
+
           <div>
-            <p class="texto-suave">Jogador</p>
+            <p class="texto-suave">NOME DO JOGADOR</p>
             <h1 id="perfilNome">Visitante</h1>
-            <p><strong>❤️ Jogo favorito:</strong> <span id="perfilJogoFavorito">Nenhum</span></p>
-            <p><strong>🖥️ Plataforma favorita:</strong> <span id="perfilPlataforma">Não definida</span></p>
-            <p><strong>👑 Categoria favorita:</strong> <span id="perfilCategoria">Não definida</span></p>
+            <p><strong>Título:</strong> Jogador</p>
+            <p><strong>Jogo favorito:</strong> <span id="perfilJogoFavorito">Nenhum</span></p>
+            <p><strong>Plataforma favorita:</strong> <span id="perfilPlataforma">Não definida</span></p>
+            <p><strong>Categoria favorita:</strong> <span id="perfilCategoria">Não definida</span></p>
           </div>
         </div>
 
@@ -41,7 +47,7 @@
           <article><span>🎮</span><strong id="perfilTotal">0</strong><p>Jogos</p></article>
           <article><span>🏆</span><strong id="perfilZerados">0</strong><p>Zerados</p></article>
           <article><span>❌</span><strong id="perfilDropados">0</strong><p>Dropados</p></article>
-          <article><span>⏱️</span><strong id="perfilHoras">0h</strong><p>Tempo</p></article>
+          <article><span>⏱️</span><strong id="perfilHoras">0h</strong><p>Tempo de jogo</p></article>
         </div>
       </div>
 
@@ -49,7 +55,7 @@
         <div class="titulo-secao">
           <div>
             <span class="etiqueta">Habilidades</span>
-            <h2>Estilo de jogador</h2>
+            <h2>Principais habilidades</h2>
           </div>
         </div>
         <div class="habilidades" id="perfilHabilidades"></div>
@@ -73,7 +79,7 @@
             <p class="texto-suave">Publique uma versão da sua Carteirinha para outras pessoas visualizarem.</p>
           </div>
 
-          <a class="botao" href="comunidade.html">🌐 Ver comunidade</a>
+          <a class="botao" href="comunidade.html">Ver comunidade</a>
         </div>
 
         <div class="perfil-publico-configuracao">
@@ -86,13 +92,13 @@
           </label>
 
           <p class="texto-suave aviso-privacidade">
-            🔒 Sua biblioteca completa, histórico, backup e comentários pessoais continuam locais. Apenas os dados publicados nesta área são enviados para o perfil público.
+            Seus comentários pessoais, histórico e backup continuam locais. Apenas os dados que você publica nesta área são enviados ao perfil público.
           </p>
 
           <div class="acoes-perfil-publico">
-            <button class="botao botao-destaque" id="btnPublicarPerfil" type="button">🌐 Publicar meu perfil</button>
-            <button class="botao" id="btnCopiarPerfil" type="button" hidden>🔗 Copiar link</button>
-            <a class="botao" id="btnAbrirPerfilPublico" href="#" target="_blank" rel="noopener" hidden>👁️ Ver perfil público</a>
+            <button class="botao botao-destaque" id="btnPublicarPerfil" type="button">Publicar meu perfil</button>
+            <button class="botao" id="btnCopiarPerfil" type="button" hidden>Copiar link</button>
+            <a class="botao" id="btnAbrirPerfilPublico" href="#" target="_blank" rel="noopener" hidden>Ver perfil público</a>
             <button class="botao botao-perigo" id="btnDespublicarPerfil" type="button" hidden>Despublicar</button>
           </div>
 
@@ -105,6 +111,9 @@
   </main>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script src="script.js?v=3.1.0"></script>
+  <script src="script.js?v=6.2.0"></script>
+  <script src="avatar-engine-v57.js?v=5.7.0"></script>
+  <script src="theme-v5.js?v=6.2.0"></script>
+  <script src="auth-v62.js?v=6.2.0"></script>
 </body>
 </html>
